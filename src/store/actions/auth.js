@@ -8,22 +8,23 @@ export const initAuth = () => {
   return { type: actionTypes.AUTH_INIT, payload: { token, type } };
 };
 
-export const login = (userInfo) => {
-  return _authenticate('auth/login', userInfo);
+export const login = (userInfo, navigate) => {
+  return _authenticate('auth/login', userInfo, navigate);
 };
 
-export const signup = (userInfo) => {
-  return _authenticate('auth/signup', userInfo);
+export const signup = (userInfo, navigate) => {
+  return _authenticate('auth/signup', userInfo, navigate);
 };
 
-export const logout = () => {
+export const logout = (navigate) => {
   localStorage.removeItem('token');
   localStorage.removeItem('type');
+  navigate('/');
 
   return { type: actionTypes.AUTH_LOGOUT };
 };
 
-const _authenticate = (url, data) => {
+const _authenticate = (url, data, navigate) => {
   return async (dispatch) => {
     dispatch({ type: actionTypes.AUTH_START });
 
@@ -33,6 +34,7 @@ const _authenticate = (url, data) => {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('type', response.data.type);
 
+      navigate('/');
       dispatch({ type: actionTypes.AUTH_SUCCESS, payload: response.data });
     } catch (error) {
       dispatch({ type: actionTypes.AUTH_FAIL, payload: error.message });

@@ -7,12 +7,8 @@ import { login } from '../../../store/actions/auth';
 import Classes from './index.module.css';
 
 const Login = () => {
-  const { authenticated, loading, error } = useSelector((state) => state.auth);
+  const { loading, error } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-
-  if (authenticated) {
-    navigate('/');
-  }
 
   const dispatch = useDispatch();
 
@@ -24,7 +20,7 @@ const Login = () => {
   const loginHandler = (event) => {
     event.preventDefault();
 
-    dispatch(login({ userName, password }));
+    dispatch(login({ userName, password }, navigate));
   };
 
   return (

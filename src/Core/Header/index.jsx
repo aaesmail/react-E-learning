@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { Nav, Navbar, Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { logout } from '../../store/actions/auth';
@@ -10,8 +10,9 @@ import brandImage from '../../images/brand.png';
 const Header = () => {
   const isAuthenticated = useSelector((state) => state.auth.authenticated);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const logoutHandler = () => dispatch(logout());
+  const logoutHandler = () => dispatch(logout(navigate));
 
   let navLinks;
 

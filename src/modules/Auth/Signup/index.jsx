@@ -7,12 +7,8 @@ import { signup } from '../../../store/actions/auth';
 import Classes from './index.module.css';
 
 const Signup = () => {
-  const { authenticated, loading, error } = useSelector((state) => state.auth);
+  const { loading, error } = useSelector((state) => state.auth);
   const navigate = useNavigate();
-
-  if (authenticated) {
-    navigate('/');
-  }
 
   const dispatch = useDispatch();
 
@@ -28,7 +24,7 @@ const Signup = () => {
   const signupHandler = (event) => {
     event.preventDefault();
 
-    dispatch(signup(userInfo));
+    dispatch(signup(userInfo, navigate));
   };
 
   const submitDisabled =
