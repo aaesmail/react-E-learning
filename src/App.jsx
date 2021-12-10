@@ -1,5 +1,5 @@
-import { lazy, Suspense, Fragment } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Header from './Core/Header';
 import Loading from './Core/Loading';
@@ -10,7 +10,7 @@ const NotFound = lazy(() => import('./modules/NotFound'));
 
 const App = () => {
   return (
-    <Fragment>
+    <BrowserRouter>
       <Header />
 
       <Suspense fallback={<Loading />}>
@@ -22,7 +22,7 @@ const App = () => {
           <Route path='*' element={<NotFound />} />
         </Routes>
       </Suspense>
-    </Fragment>
+    </BrowserRouter>
   );
 };
 
