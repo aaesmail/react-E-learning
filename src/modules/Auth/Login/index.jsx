@@ -7,7 +7,7 @@ import Classes from './index.module.css';
 const Login = () => {
   const dispatch = useDispatch();
 
-  const asd = () => {
+  const loginHandler = () => {
     dispatch(login('asd', 'asdas'));
   };
 
@@ -28,7 +28,7 @@ const Login = () => {
             </Form.Group>
 
             <Button
-              onClick={asd}
+              onClick={loginHandler}
               variant="primary"
               className={Classes.btn}
               type="button"

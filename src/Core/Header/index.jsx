@@ -11,24 +11,24 @@ const Header = () => {
   const isAuthenticated = useSelector((state) => state.auth.authenticated);
   const dispatch = useDispatch();
 
+  const logoutHandler = () => dispatch(logout());
+
   let navLinks;
 
   if (isAuthenticated) {
     navLinks = (
       <Fragment>
-        <Nav.Link onClick={() => dispatch(logout())} className={Classes.link}>
-          Logout
-        </Nav.Link>
+        <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>
       </Fragment>
     );
   } else {
     navLinks = (
       <Fragment>
-        <Nav.Link as={Link} to="/auth/login" className={Classes.link}>
+        <Nav.Link as={Link} to="/auth/login">
           Login
         </Nav.Link>
 
-        <Nav.Link as={Link} to="/auth/signup" className={Classes.link}>
+        <Nav.Link as={Link} to="/auth/signup">
           Signup
         </Nav.Link>
       </Fragment>
@@ -37,7 +37,7 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar bg="primary" variant="light" expand="lg">
+      <Navbar bg="primary" variant="dark" expand="lg">
         <Container>
           <Navbar.Brand>
             <Link to="/">
