@@ -1,15 +1,9 @@
 import api from '../../api';
-import {
-  LOGIN_START,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGIN_DONE,
-  LOGOUT,
-} from '../action_types/auth';
+import * as actionTypes from '../action_types/auth';
 
 export const login = (email, password) => {
   return async (dispatch) => {
-    dispatch({ type: LOGIN_START });
+    dispatch({ type: actionTypes.LOGIN_START });
 
     try {
       const response = await api.post(
@@ -17,15 +11,15 @@ export const login = (email, password) => {
         { email, password },
       );
 
-      dispatch({ type: LOGIN_SUCCESS, payload: response.token });
+      dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: response.token });
     } catch (error) {
-      dispatch({ type: LOGIN_FAIL, payload: error.message });
+      dispatch({ type: actionTypes.LOGIN_FAIL, payload: error.message });
     }
 
-    dispatch({ type: LOGIN_DONE });
+    dispatch({ type: actionTypes.LOGIN_DONE });
   };
 };
 
 export const logout = () => {
-  return { type: LOGOUT };
+  return { type: actionTypes.LOGOUT };
 };

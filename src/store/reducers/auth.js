@@ -1,10 +1,4 @@
-import {
-  LOGIN_START,
-  LOGIN_SUCCESS,
-  LOGIN_FAIL,
-  LOGIN_DONE,
-  LOGOUT,
-} from '../action_types/auth';
+import * as actionTypes from '../action_types/auth';
 
 const initialState = {
   loading: false,
@@ -15,32 +9,32 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN_START:
+    case actionTypes.LOGIN_START:
       return {
         ...initialState,
         loading: true,
       };
 
-    case LOGIN_DONE:
+    case actionTypes.LOGIN_DONE:
       return {
         ...state,
         loading: false,
       };
 
-    case LOGIN_SUCCESS:
+    case actionTypes.LOGIN_SUCCESS:
       return {
         ...state,
         authenticated: true,
         token: action.payload,
       };
 
-    case LOGIN_FAIL:
+    case actionTypes.LOGIN_FAIL:
       return {
         ...state,
         error: action.payload,
       };
 
-    case LOGOUT:
+    case actionTypes.LOGOUT:
       return {
         ...initialState,
       };
