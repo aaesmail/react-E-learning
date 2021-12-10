@@ -1,14 +1,30 @@
-import { Card, Form, Button } from 'react-bootstrap';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Card, Form, Button, Spinner } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { useDispatch } from 'react-redux';
 import { login } from '../../../store/actions/auth';
 import Classes from './index.module.css';
 
 const Login = () => {
+  const { authenticated, loading, error } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+
+  if (authenticated) {
+    navigate('/');
+  }
+
   const dispatch = useDispatch();
 
-  const loginHandler = () => {
-    dispatch(login('asd', 'asdas'));
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+
+  const submitDisabled = !userName || !password || loading;
+
+  const loginHandler = (event) => {
+    event.preventDefault();
+
+    dispatch(login({ userName, password }));
   };
 
   return (
@@ -18,22 +34,43 @@ const Login = () => {
         <Card.Body>
           <Form className={Classes.form}>
             <Form.Group className="mb-3">
-              <Form.Label>Username</Form.Label>
-              <Form.Control type="text" placeholder="Username" />
+              <Form.Label htmlFor="username">Username</Form.Label>
+              <Form.Control
+                id="username"
+                type="text"
+                placeholder="Username"
+                value={userName}
+                onChange={(event) => setUserName(event.target.value)}
+              />
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Label htmlFor="password">Password</Form.Label>
+              <Form.Control
+                id="password"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
             </Form.Group>
+
+            {error && <div className="text-danger">{error}</div>}
 
             <Button
               onClick={loginHandler}
               variant="primary"
               className={Classes.btn}
-              type="button"
+              disabled={submitDisabled}
+              type="submit"
             >
-              Login
+              {loading ? (
+                <Spinner animation="border" size="sm" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              ) : (
+                'Login'
+              )}
             </Button>
           </Form>
         </Card.Body>

@@ -15,8 +15,21 @@
   width: 90%;
 }
 
+.date {
+  cursor: text;
+}
+
+.date::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+
 .btn {
   width: 100%;
   margin: auto;
   margin-top: 10px;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  pointer-events: all;
 }

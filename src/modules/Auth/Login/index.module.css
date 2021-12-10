@@ -19,3 +19,8 @@
   margin: auto;
   margin-top: 10px;
 }
+
+.btn:disabled {
+  cursor: not-allowed;
+  pointer-events: all;
+}

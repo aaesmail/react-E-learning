@@ -1,5 +1,8 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import { initAuth } from './store/actions/auth';
 
 import Header from './Core/Header';
 import Loading from './Core/Loading';
@@ -9,6 +12,9 @@ const Auth = lazy(() => import('./modules/Auth'));
 const NotFound = lazy(() => import('./modules/NotFound'));
 
 const App = () => {
+  const dispatch = useDispatch();
+  dispatch(initAuth());
+
   return (
     <BrowserRouter>
       <Header />

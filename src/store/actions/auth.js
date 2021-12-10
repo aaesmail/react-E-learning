@@ -1,25 +1,43 @@
 import api from '../../api';
 import * as actionTypes from '../action_types/auth';
 
-export const login = (email, password) => {
-  return async (dispatch) => {
-    dispatch({ type: actionTypes.LOGIN_START });
+export const initAuth = () => {
+  const token = localStorage.getItem('token');
+  const type = localStorage.getItem('type');
 
-    try {
-      const response = await api.post(
-        'https://e-learning.getsandbox.com/auth/login',
-        { email, password },
-      );
+  return { type: actionTypes.AUTH_INIT, payload: { token, type } };
+};
 
-      dispatch({ type: actionTypes.LOGIN_SUCCESS, payload: response.token });
-    } catch (error) {
-      dispatch({ type: actionTypes.LOGIN_FAIL, payload: error.message });
-    }
+export const login = (userInfo) => {
+  return _authenticate('auth/login', userInfo);
+};
 
-    dispatch({ type: actionTypes.LOGIN_DONE });
-  };
+export const signup = (userInfo) => {
+  return _authenticate('auth/signup', userInfo);
 };
 
 export const logout = () => {
-  return { type: actionTypes.LOGOUT };
+  localStorage.removeItem('token');
+  localStorage.removeItem('type');
+
+  return { type: actionTypes.AUTH_LOGOUT };
+};
+
+const _authenticate = (url, data) => {
+  return async (dispatch) => {
+    dispatch({ type: actionTypes.AUTH_START });
+
+    try {
+      const response = await api.post(url, data);
+
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('type', response.data.type);
+
+      dispatch({ type: actionTypes.AUTH_SUCCESS, payload: response.data });
+    } catch (error) {
+      dispatch({ type: actionTypes.AUTH_FAIL, payload: error.message });
+    }
+
+    dispatch({ type: actionTypes.AUTH_DONE });
+  };
 };

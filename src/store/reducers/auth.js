@@ -5,36 +5,52 @@ const initialState = {
   error: null,
   authenticated: false,
   token: null,
+  admin: false,
+  instructor: false,
+  learner: false,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.LOGIN_START:
+    case actionTypes.AUTH_INIT:
+      return {
+        ...initialState,
+        authenticated: action.payload.token !== null,
+        token: action.payload.token,
+        admin: action.payload.type === 'admin',
+        instructor: action.payload.type === 'instructor',
+        learner: action.payload.type === 'learner',
+      };
+
+    case actionTypes.AUTH_START:
       return {
         ...initialState,
         loading: true,
       };
 
-    case actionTypes.LOGIN_DONE:
-      return {
-        ...state,
-        loading: false,
-      };
-
-    case actionTypes.LOGIN_SUCCESS:
+    case actionTypes.AUTH_SUCCESS:
       return {
         ...state,
         authenticated: true,
-        token: action.payload,
+        token: action.payload.token,
+        admin: action.payload.type === 'admin',
+        instructor: action.payload.type === 'instructor',
+        learner: action.payload.type === 'learner',
       };
 
-    case actionTypes.LOGIN_FAIL:
+    case actionTypes.AUTH_FAIL:
       return {
         ...state,
         error: action.payload,
       };
 
-    case actionTypes.LOGOUT:
+    case actionTypes.AUTH_DONE:
+      return {
+        ...state,
+        loading: false,
+      };
+
+    case actionTypes.AUTH_LOGOUT:
       return {
         ...initialState,
       };
