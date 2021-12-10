@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Header from './Core/Header';
 import Loading from './Core/Loading';
@@ -16,11 +16,13 @@ const App = () => {
       <main>
         <Suspense fallback={<Loading />}>
           <Routes>
-            <Route exact path="/" element={<Home />} />
-
             <Route path="/auth/*" element={<Auth />} />
 
-            <Route path="*" element={<NotFound />} />
+            <Route exact path="/" element={<Home />} />
+
+            <Route exact path="/404" element={<NotFound />} />
+
+            <Route path="*" element={<Navigate to="/404" />} />
           </Routes>
         </Suspense>
       </main>
