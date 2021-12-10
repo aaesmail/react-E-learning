@@ -5,6 +5,10 @@ export const initAuth = () => {
   const token = localStorage.getItem('token');
   const type = localStorage.getItem('type');
 
+  if (token) {
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  }
+
   return { type: actionTypes.AUTH_INIT, payload: { token, type } };
 };
 
@@ -33,6 +37,10 @@ const _authenticate = (url, data, navigate) => {
 
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('type', response.data.type);
+
+      api.defaults.headers.common[
+        'Authorization'
+      ] = `Bearer ${response.data.token}`;
 
       navigate('/');
       dispatch({ type: actionTypes.AUTH_SUCCESS, payload: response.data });
