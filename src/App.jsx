@@ -5,7 +5,7 @@ import Header from './Header';
 
 const Home = lazy(() => import('./modules/Home'));
 const Auth = lazy(() => import('./modules/Auth'));
-const NotFound = lazy(() => import('./NotFound'));
+const NotFound = lazy(() => import('./modules/NotFound'));
 
 const App = () => {
   return (
