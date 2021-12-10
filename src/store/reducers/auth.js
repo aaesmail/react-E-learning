@@ -1,5 +1,5 @@
 import {
-  START_LOGIN,
+  LOGIN_START,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGIN_DONE,
@@ -15,13 +15,10 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case START_LOGIN:
+    case LOGIN_START:
       return {
-        ...state,
-        authenticated: false,
-        token: null,
+        ...initialState,
         loading: true,
-        error: null,
       };
 
     case LOGIN_DONE:

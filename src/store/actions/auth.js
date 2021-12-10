@@ -1,6 +1,6 @@
 import api from '../../api';
 import {
-  START_LOGIN,
+  LOGIN_START,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGIN_DONE,
@@ -9,7 +9,7 @@ import {
 
 export const login = (email, password) => {
   return async (dispatch) => {
-    dispatch({ type: START_LOGIN });
+    dispatch({ type: LOGIN_START });
 
     try {
       const response = await api.post(
