@@ -1,22 +1,26 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Header from './Header';
-import Home from './modules/Home';
-import Auth from './modules/Auth';
-import NotFound from './NotFound';
+
+const Home = lazy(() => import('./modules/Home'));
+const Auth = lazy(() => import('./modules/Auth'));
+const NotFound = lazy(() => import('./NotFound'));
 
 const App = () => {
   return (
     <div>
       <Header />
 
-      <Routes>
-        <Route path='/' element={<Home />} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path='/auth' element={<Auth />} />
 
-        <Route path='/auth' element={<Auth />} />
+          <Route exact path='/' element={<Home />} />
 
-        <Route path='*' element={<NotFound />} />
-      </Routes>
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 };
