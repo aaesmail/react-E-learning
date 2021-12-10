@@ -16,11 +16,11 @@ const App = () => {
       <main>
         <Suspense fallback={<Loading />}>
           <Routes>
-            <Route path='/auth' element={<Auth />} />
+            <Route exact path="/" element={<Home />} />
 
-            <Route exact path='/' element={<Home />} />
+            <Route path="/auth/*" element={<Auth />} />
 
-            <Route path='*' element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </main>
