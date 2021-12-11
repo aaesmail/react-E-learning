@@ -23,6 +23,10 @@
   cursor: pointer;
 }
 
+.error {
+  height: 26px;
+}
+
 .btn {
   width: 100%;
   margin: auto;

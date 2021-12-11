@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, Form, Button, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { signup } from '../../../store/actions/auth';
+import { signup, resetAuth } from '../../../store/actions/auth';
 import Classes from './index.module.css';
 
 const Signup = () => {
@@ -11,6 +11,8 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+
+  useEffect(() => dispatch(resetAuth()), [dispatch]);
 
   const [userInfo, setUserInfo] = useState({
     userName: '',
@@ -121,7 +123,12 @@ const Signup = () => {
               />
             </Form.Group>
 
-            {error && <div className="text-danger">{error}</div>}
+            <div
+              style={{ visibility: error ? 'visible' : 'hidden' }}
+              className={`text-danger ${Classes.error}`}
+            >
+              {error}
+            </div>
 
             <Button
               variant="primary"

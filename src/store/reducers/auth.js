@@ -50,7 +50,7 @@ const reducer = (state = initialState, action) => {
         loading: false,
       };
 
-    case actionTypes.AUTH_LOGOUT:
+    case actionTypes.AUTH_RESET:
       return {
         ...initialState,
       };
