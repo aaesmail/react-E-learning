@@ -1,0 +1,84 @@
+#notfound {
+  position: relative;
+  height: calc(100vh - 59.2px);
+  display: flex;
+}
+
+#notfound .notfound {
+  position: absolute;
+  left: 50%;
+  top: 35%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.notfound {
+  max-width: 460px;
+  width: 100%;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.notfound .notfound404 {
+  height: 158px;
+  line-height: 153px;
+}
+
+.notfound .notfound404 h1 {
+  font-family: 'Josefin Sans', sans-serif;
+  color: #222;
+  font-size: 220px;
+  letter-spacing: 10px;
+  margin: 0px;
+  font-weight: 700;
+  text-shadow: 2px 2px 0px #c9c9c9, -2px -2px 0px #c9c9c9;
+}
+
+.notfound .notfound404 h1 > span {
+  text-shadow: 2px 2px 0px rgb(13, 110, 253), -2px -2px 0px rgb(13, 110, 253),
+    0px 0px 8px rgb(13, 110, 253);
+}
+
+.notfound h2 {
+    margin-top: 75px;
+}
+
+.notfound p {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
+
+.notfound a {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+  text-transform: uppercase;
+  background: transparent;
+  color: rgb(13, 202, 240);
+  border: 2px solid rgb(13, 202, 240);
+  display: inline-block;
+  padding: 10px 25px;
+  font-weight: 700;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+}
+
+.notfound a:hover {
+  color: rgb(13, 110, 253);
+  border-color: rgb(13, 110, 253);
+}
+
+@media only screen and (max-width: 480px) {
+  .notfound .notfound404 {
+    height: 122px;
+    line-height: 122px;
+  }
+
+  .notfound .notfound404 h1 {
+    font-size: 122px;
+  }
+}
