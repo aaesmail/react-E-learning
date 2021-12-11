@@ -1,15 +1,13 @@
 import api from '../../api';
 import * as actionTypes from '../action_types/auth';
 
-export const initAuth = (dispatch, navigate) => {
+export const initAuth = () => {
   const token = localStorage.getItem('token');
   const type = localStorage.getItem('type');
 
   if (token) {
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }
-
-  _setupInterceptors(dispatch, navigate);
 
   return { type: actionTypes.AUTH_INIT, payload: { token, type } };
 };
@@ -52,28 +50,12 @@ const _authenticate = (url, data, navigate) => {
       navigate('/');
       dispatch({ type: actionTypes.AUTH_SUCCESS, payload: response.data });
     } catch (error) {
-      if (error.response.status !== 401) {
-        dispatch({
-          type: actionTypes.AUTH_FAIL,
-          payload: error.response.data.message,
-        });
-      }
+      dispatch({
+        type: actionTypes.AUTH_FAIL,
+        payload: error.response.data.message,
+      });
     }
 
     dispatch({ type: actionTypes.AUTH_DONE });
   };
-};
-
-const _setupInterceptors = (dispatch, navigate) => {
-  api.interceptors.response.use(null, (error) => {
-    if (error.response.status === 401) {
-      dispatch({ type: actionTypes.AUTH_RESET });
-      localStorage.removeItem('token');
-      localStorage.removeItem('type');
-      delete api.defaults.headers.common['Authorization'];
-      navigate('/auth/login');
-    }
-
-    return Promise.reject(error);
-  });
 };

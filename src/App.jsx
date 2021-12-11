@@ -1,6 +1,6 @@
 import { useEffect, lazy, Suspense, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { initAuth } from './store/actions/auth';
 
@@ -17,8 +17,7 @@ const App = () => {
     (state) => state.auth,
   );
 
-  const navigate = useNavigate();
-  useEffect(() => dispatch(initAuth(dispatch, navigate)), [dispatch, navigate]);
+  useEffect(() => dispatch(initAuth()), [dispatch]);
 
   const routes = [
     <Route key="/" exact path="/" element={<Home />} />,
