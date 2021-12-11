@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, Form, Button, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { login, resetAuth } from '../../../store/actions/auth';
 import Classes from './index.module.css';
@@ -13,6 +14,16 @@ const Login = () => {
   const dispatch = useDispatch();
 
   useEffect(() => dispatch(resetAuth()), [dispatch]);
+
+  useEffect(() => {
+    const authError = localStorage.getItem('authError');
+
+    if (authError) {
+      localStorage.removeItem('authError');
+
+      toast.error('Authentication Error!');
+    }
+  }, []);
 
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');

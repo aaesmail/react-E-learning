@@ -9,6 +9,8 @@ api.interceptors.response.use(null, (error) => {
     localStorage.removeItem('token');
     localStorage.removeItem('type');
 
+    localStorage.setItem('authError', true);
+
     window.location.replace('/auth/login');
   }
 

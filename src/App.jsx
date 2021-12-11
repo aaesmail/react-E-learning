@@ -1,6 +1,7 @@
 import { useEffect, lazy, Suspense, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 import { initAuth } from './store/actions/auth';
 
@@ -26,7 +27,7 @@ const App = () => {
   ];
 
   const authRoutes = [
-
+    
   ];
 
   const guestRoutes = [
@@ -42,7 +43,7 @@ const App = () => {
   ];
 
   const learnerRoutes = [
-    
+
   ];
 
   if (authenticated) {
@@ -62,6 +63,18 @@ const App = () => {
   return (
     <Fragment>
       <Header />
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
 
       <main>
         <Suspense fallback={<Loading />}>
