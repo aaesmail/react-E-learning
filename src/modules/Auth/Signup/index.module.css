@@ -24,7 +24,7 @@
 }
 
 .error {
-  height: 26px;
+  min-height: 26px;
 }
 
 .btn {

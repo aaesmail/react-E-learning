@@ -25,15 +25,15 @@ const Login = () => {
     }
   }, []);
 
-  const [userName, setUserName] = useState('');
+  const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
-  const submitDisabled = !userName || !password || loading;
+  const submitDisabled = !username || !password || loading;
 
   const loginHandler = (event) => {
     event.preventDefault();
 
-    dispatch(login({ userName, password }, navigate));
+    dispatch(login({ username, password }, navigate));
   };
 
   return (
@@ -48,7 +48,7 @@ const Login = () => {
                 id="username"
                 type="text"
                 placeholder="Username"
-                value={userName}
+                value={username}
                 onChange={(event) => setUserName(event.target.value)}
               />
             </Form.Group>

@@ -15,7 +15,7 @@ const Signup = () => {
   useEffect(() => dispatch(resetAuth()), [dispatch]);
 
   const [userInfo, setUserInfo] = useState({
-    userName: '',
+    username: '',
     email: '',
     password: '',
     firstName: '',
@@ -30,7 +30,7 @@ const Signup = () => {
   };
 
   const submitDisabled =
-    !userInfo.userName ||
+    !userInfo.username ||
     !userInfo.email ||
     !userInfo.password ||
     !userInfo.firstName ||
@@ -50,9 +50,9 @@ const Signup = () => {
                 id="username"
                 type="text"
                 placeholder="Username"
-                value={userInfo.userName}
+                value={userInfo.username}
                 onChange={(event) =>
-                  setUserInfo({ ...userInfo, userName: event.target.value })
+                  setUserInfo({ ...userInfo, username: event.target.value })
                 }
               />
             </Form.Group>
