@@ -1,6 +1,7 @@
 import * as actionTypes from '../action_types/auth';
 
 const initialState = {
+  init: true,
   loading: false,
   error: null,
   authenticated: false,
@@ -15,6 +16,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.AUTH_INIT:
       return {
         ...initialState,
+        init: false,
         authenticated: action.payload.token !== null,
         token: action.payload.token,
         admin: action.payload.type === 'admin',
@@ -22,9 +24,18 @@ const reducer = (state = initialState, action) => {
         learner: action.payload.type === 'learner',
       };
 
+    case actionTypes.AUTH_REFRESH_TYPE:
+      return {
+        ...state,
+        admin: action.payload === 'admin',
+        instructor: action.payload === 'instructor',
+        learner: action.payload === 'learner',
+      };
+
     case actionTypes.AUTH_START:
       return {
         ...initialState,
+        init: false,
         loading: true,
       };
 
@@ -53,6 +64,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.AUTH_RESET:
       return {
         ...initialState,
+        init: false,
       };
 
     default:

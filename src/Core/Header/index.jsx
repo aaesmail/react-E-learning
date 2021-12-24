@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { Nav, Navbar, Container } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,32 +7,58 @@ import Classes from './index.module.css';
 import brandImage from '../../images/brand.png';
 
 const Header = () => {
-  const isAuthenticated = useSelector((state) => state.auth.authenticated);
+  const { authenticated, admin, instructor, learner } = useSelector(
+    (state) => state.auth,
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const logoutHandler = () => dispatch(logout(navigate));
 
-  let navLinks;
+  const links = [];
 
-  if (isAuthenticated) {
-    navLinks = (
-      <Fragment>
-        <Nav.Link onClick={logoutHandler}>Logout</Nav.Link>
-      </Fragment>
-    );
+  const nonAuthenticatedLinks = [
+    <Nav.Link key="login" as={Link} to="/auth/login">
+      Login
+    </Nav.Link>,
+
+    <Nav.Link key="signup" as={Link} to="/auth/signup">
+      Signup
+    </Nav.Link>,
+  ];
+
+  const authenticatedLinks = [
+    <Nav.Link key="logout" onClick={logoutHandler}>
+      Logout
+    </Nav.Link>,
+  ];
+
+  const adminLinks = [
+    <Nav.Link key="admin" as={Link} to="/admin">
+      Admin
+    </Nav.Link>,
+  ];
+
+  const instructorLinks = [
+
+  ];
+
+  const learnerLinks = [
+    
+  ];
+
+  if (authenticated) {
+    if (admin) {
+      links.push(...adminLinks);
+    } else if (instructor) {
+      links.push(...instructorLinks);
+    } else if (learner) {
+      links.push(...learnerLinks);
+    }
+
+    links.push(...authenticatedLinks);
   } else {
-    navLinks = (
-      <Fragment>
-        <Nav.Link as={Link} to="/auth/login">
-          Login
-        </Nav.Link>
-
-        <Nav.Link as={Link} to="/auth/signup">
-          Signup
-        </Nav.Link>
-      </Fragment>
-    );
+    links.push(...nonAuthenticatedLinks);
   }
 
   return (
@@ -49,7 +74,7 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className={Classes.wrapper}>{navLinks}</Nav>
+            <Nav className={Classes.wrapper}>{links}</Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>

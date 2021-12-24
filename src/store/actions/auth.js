@@ -1,15 +1,34 @@
+import { toast } from 'react-toastify';
+
 import api from '../../api';
 import * as actionTypes from '../action_types/auth';
 
 export const initAuth = () => {
-  const token = localStorage.getItem('token');
-  const type = localStorage.getItem('type');
+  return async (dispatch) => {
+    const token = localStorage.getItem('token');
+    const type = localStorage.getItem('type');
 
-  if (token) {
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  }
+    if (token) {
+      api.defaults.headers.common['Authorization'] = token;
+    }
 
-  return { type: actionTypes.AUTH_INIT, payload: { token, type } };
+    dispatch({ type: actionTypes.AUTH_INIT, payload: { token, type } });
+
+    if (token) {
+      try {
+        const response = await api.get('/users/me');
+
+        localStorage.setItem('type', response.data.type);
+
+        dispatch({
+          type: actionTypes.AUTH_REFRESH_TYPE,
+          payload: response.data.type,
+        });
+      } catch {
+        toast.error('Authentication Error!');
+      }
+    }
+  };
 };
 
 export const login = (userInfo, navigate) => {
@@ -40,15 +59,13 @@ const _authenticate = (url, data, navigate) => {
     try {
       const response = await api.post(url, data);
 
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('type', response.data.type);
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('type', response.type);
 
-      api.defaults.headers.common[
-        'Authorization'
-      ] = `Bearer ${response.data.token}`;
+      api.defaults.headers.common['Authorization'] = response.token;
 
       navigate('/');
-      dispatch({ type: actionTypes.AUTH_SUCCESS, payload: response.data });
+      dispatch({ type: actionTypes.AUTH_SUCCESS, payload: response });
     } catch (error) {
       dispatch({
         type: actionTypes.AUTH_FAIL,

@@ -1,17 +1,21 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import Loading from '../../Core/Loading';
 
-import Login from './Login';
-import Signup from './Signup';
+const Login = lazy(() => import('./Login'));
+const Signup = lazy(() => import('./Signup'));
 
 const Auth = () => {
   return (
-    <Routes>
-      <Route path="login" element={<Login />} />
+    <Suspense fallback={<Loading />}>
+      <Routes>
+        <Route path="login" element={<Login />} />
 
-      <Route path="signup" element={<Signup />} />
+        <Route path="signup" element={<Signup />} />
 
-      <Route path="*" element={<Navigate to="/404" />} />
-    </Routes>
+        <Route path="*" element={<Navigate to="/404" />} />
+      </Routes>
+    </Suspense>
   );
 };
 

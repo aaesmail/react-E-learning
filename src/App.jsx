@@ -10,11 +10,13 @@ import Loading from './Core/Loading';
 
 const Home = lazy(() => import('./modules/Home'));
 const Auth = lazy(() => import('./modules/Auth'));
+const Courses = lazy(() => import('./modules/Courses'));
+const Admin = lazy(() => import('./modules/Admin'));
 const NotFound = lazy(() => import('./modules/NotFound'));
 
 const App = () => {
   const dispatch = useDispatch();
-  const { authenticated, admin, instructor, learner } = useSelector(
+  const { authenticated, admin, instructor, learner, init } = useSelector(
     (state) => state.auth,
   );
 
@@ -23,11 +25,10 @@ const App = () => {
   const routes = [
     <Route key="/" exact path="/" element={<Home />} />,
     <Route key="/404" exact path="/404" element={<NotFound />} />,
-    <Route key="*" path="*" element={<Navigate to="/404" />} />,
   ];
 
   const authRoutes = [
-    
+    <Route key="/courses/*" path="/courses/*" element={<Courses />} />,
   ];
 
   const guestRoutes = [
@@ -35,7 +36,7 @@ const App = () => {
   ];
 
   const adminRoutes = [
-
+    <Route key="/admin" path="/admin" element={<Admin />} />,
   ];
 
   const instructorRoutes = [
@@ -58,6 +59,13 @@ const App = () => {
     routes.push(...instructorRoutes);
   } else if (learner) {
     routes.push(...learnerRoutes);
+  }
+
+  if (init) {
+    routes.push(<Route key="*" path="*" element={<Loading />} />);
+  }
+  else {
+    routes.push(<Route key="*" path="*" element={<Navigate to="/404" />} />);
   }
 
   return (

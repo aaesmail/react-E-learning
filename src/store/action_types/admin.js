@@ -1,0 +1,2 @@
+export const START_CHANGE_ROLE = 'START_CHANGE_ROLE';
+export const DONE_CHANGE_ROLE = 'DONE_CHANGE_ROLE';
