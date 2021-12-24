@@ -43,7 +43,9 @@ const Header = () => {
   ];
 
   const instructorLinks = [
-
+    <Nav.Link key="create" as={Link} to="/create">
+      Create
+    </Nav.Link>,
   ];
 
   const learnerLinks = [

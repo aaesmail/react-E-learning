@@ -13,6 +13,7 @@ const Auth = lazy(() => import('./modules/Auth'));
 const Courses = lazy(() => import('./modules/Courses'));
 const Admin = lazy(() => import('./modules/Admin'));
 const Me = lazy(() => import('./modules/Me'));
+const Create = lazy(() => import('./modules/Create'));
 const NotFound = lazy(() => import('./modules/NotFound'));
 
 const App = () => {
@@ -42,7 +43,7 @@ const App = () => {
   ];
 
   const instructorRoutes = [
-
+    <Route key="/create" path="/create" element={<Create />} />,
   ];
 
   const learnerRoutes = [

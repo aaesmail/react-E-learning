@@ -1,0 +1,39 @@
+.container {
+  width: 100%;
+  padding-top: 20vh;
+  display: flex;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+}
+
+.spacetop {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.syllabusgroup {
+  text-align: center;
+  width: 50%;
+  margin-top: 20px;
+}
+
+.syllabus {
+  resize: none;
+  height: 200px;
+}
+
+.btn {
+  margin: auto;
+  margin-top: 20px;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  pointer-events: all;
+}

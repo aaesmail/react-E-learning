@@ -21,6 +21,12 @@ const reducer = (state = initialState, action) => {
         ...action.payload,
       };
 
+    case actionTypes.ADD_OWNED_COURSE:
+      return {
+        ...state,
+        ownedCourses: [...state.ownedCourses, action.payload],
+      };
+
     default:
       return state;
   }
