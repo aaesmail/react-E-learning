@@ -24,14 +24,6 @@ const reducer = (state = initialState, action) => {
         learner: action.payload.type === 'learner',
       };
 
-    case actionTypes.AUTH_REFRESH_TYPE:
-      return {
-        ...state,
-        admin: action.payload === 'admin',
-        instructor: action.payload === 'instructor',
-        learner: action.payload === 'learner',
-      };
-
     case actionTypes.AUTH_START:
       return {
         ...initialState,

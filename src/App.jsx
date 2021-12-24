@@ -12,6 +12,7 @@ const Home = lazy(() => import('./modules/Home'));
 const Auth = lazy(() => import('./modules/Auth'));
 const Courses = lazy(() => import('./modules/Courses'));
 const Admin = lazy(() => import('./modules/Admin'));
+const Me = lazy(() => import('./modules/Me'));
 const NotFound = lazy(() => import('./modules/NotFound'));
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
 
   const authRoutes = [
     <Route key="/courses/*" path="/courses/*" element={<Courses />} />,
+    <Route key="/me" path="/me" element={<Me />} />,
   ];
 
   const guestRoutes = [

@@ -28,6 +28,9 @@ const Header = () => {
   ];
 
   const authenticatedLinks = [
+    <Nav.Link key="me" as={Link} to="/me">
+      Me
+    </Nav.Link>,
     <Nav.Link key="logout" onClick={logoutHandler}>
       Logout
     </Nav.Link>,

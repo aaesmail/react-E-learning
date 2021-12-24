@@ -2,31 +2,32 @@ import { toast } from 'react-toastify';
 
 import api from '../../api';
 import * as actionTypes from '../action_types/auth';
+import { SET_ME } from '../action_types/me';
 
 export const initAuth = () => {
   return async (dispatch) => {
     const token = localStorage.getItem('token');
-    const type = localStorage.getItem('type');
 
-    if (token) {
-      api.defaults.headers.common['Authorization'] = token;
+    if (!token) {
+      return dispatch({
+        type: actionTypes.AUTH_INIT,
+        payload: { token, type: null },
+      });
     }
 
-    dispatch({ type: actionTypes.AUTH_INIT, payload: { token, type } });
+    api.defaults.headers.common['Authorization'] = token;
 
-    if (token) {
-      try {
-        const response = await api.get('/users/me');
+    try {
+      const response = await api.get('/users/me');
 
-        localStorage.setItem('type', response.data.type);
+      dispatch({ type: SET_ME, payload: response.data });
 
-        dispatch({
-          type: actionTypes.AUTH_REFRESH_TYPE,
-          payload: response.data.type,
-        });
-      } catch {
-        toast.error('Authentication Error!');
-      }
+      dispatch({
+        type: actionTypes.AUTH_INIT,
+        payload: { token, type: response.data.type },
+      });
+    } catch {
+      toast.error('Authentication Error!');
     }
   };
 };
@@ -41,7 +42,6 @@ export const signup = (userInfo, navigate) => {
 
 export const logout = (navigate) => {
   localStorage.removeItem('token');
-  localStorage.removeItem('type');
   delete api.defaults.headers.common['Authorization'];
   navigate('/');
 
@@ -60,9 +60,11 @@ const _authenticate = (url, data, navigate) => {
       const response = await api.post(url, data);
 
       localStorage.setItem('token', response.token);
-      localStorage.setItem('type', response.type);
 
       api.defaults.headers.common['Authorization'] = response.token;
+
+      const userData = await api.get('/users/me');
+      dispatch({ type: SET_ME, payload: userData.data });
 
       navigate('/');
       dispatch({ type: actionTypes.AUTH_SUCCESS, payload: response });
