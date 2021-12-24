@@ -1,10 +1,20 @@
 import { useSelector } from 'react-redux';
+import { Card } from 'react-bootstrap';
 
+import CourseCard from '../Courses/Components/CourseCard';
 import Classes from './index.module.css';
 
 const Me = () => {
-  const { firstName, lastName, birthDate, email, type, username, background } =
-    useSelector((state) => state.me);
+  const {
+    firstName,
+    lastName,
+    birthDate,
+    email,
+    type,
+    username,
+    background,
+    ownedCourses,
+  } = useSelector((state) => state.me);
 
   const bd = new Date(birthDate);
 
@@ -14,21 +24,58 @@ const Me = () => {
 
   return (
     <div className={Classes.container}>
-      <h3>
-        Name: {firstName} {lastName}
-      </h3>
+      <Card className={Classes.userInfo}>
+        <Card.Body>
+          <Card.Title className={Classes.info}>
+            <h3>
+              {firstName} {lastName}
+            </h3>
+          </Card.Title>
+          <Card.Text className={Classes.info}>
+            <b>Username:</b> <i>{username}</i>
+          </Card.Text>
+          <Card.Text className={Classes.info}>
+            <b>Type:</b> <i>{type}</i>
+          </Card.Text>
+          <Card.Text className={Classes.info}>
+            <b>Email:</b> <i>{email}</i>
+          </Card.Text>
+          <Card.Text className={Classes.info}>
+            <b>Birthdate:</b>{' '}
+            <i>
+              {day}/{month}/{year}
+            </i>
+          </Card.Text>
+          {type === 'instructor' ? (
+            <Card.Text className={Classes.info}>
+              <b>Background:</b> <i>{background}</i>
+            </Card.Text>
+          ) : null}
+        </Card.Body>
+      </Card>
 
-      <h3>Username: {username}</h3>
+      <h2
+        style={{
+          marginTop: '40px',
+          marginBottom: '-40px',
+          textAlign: 'center',
+        }}
+      >
+        Owned Courses
+      </h2>
 
-      <h3>Type: {type}</h3>
-
-      <h3>Email: {email}</h3>
-
-      <h3>
-        Birthdate: {day}/{month}/{year}
-      </h3>
-
-      {type === 'instructor' ? <h3>background: {background}</h3> : null}
+      <div className={Classes.ownedCourses}>
+        {ownedCourses.length > 0
+          ? ownedCourses.map((course) => (
+              <CourseCard
+                key={course.id}
+                id={course.id}
+                title={course.title}
+                syllabus={course.syllabus}
+              />
+            ))
+          : null}
+      </div>
     </div>
   );
 };
