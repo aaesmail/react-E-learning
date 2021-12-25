@@ -35,6 +35,12 @@ const reducer = (state = initialState, action) => {
         ),
       };
 
+    case actionTypes.ADD_ENROLLED_COURSE:
+      return {
+        ...state,
+        enrolledCourses: [...state.enrolledCourses, { id: action.payload }],
+      };
+
     default:
       return state;
   }

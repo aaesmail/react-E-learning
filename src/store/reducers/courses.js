@@ -6,6 +6,8 @@ const initialState = {
   courses: [],
   pages: 1,
   removingCourse: null,
+  enrollingCourse: null,
+  currentCourse: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -42,6 +44,37 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         removingCourse: null,
+      };
+
+    case actionTypes.FETCH_CURRENT_COURSE_START:
+      return {
+        ...initialState,
+        loading: true,
+      };
+
+    case actionTypes.FETCH_CURRENT_COURSE_SUCCESS:
+      return {
+        ...initialState,
+        currentCourse: action.payload,
+        pages: Math.ceil(action.payload.total_activities / 5),
+      };
+
+    case actionTypes.FETCH_CURRENT_COURSE_FAIL:
+      return {
+        ...initialState,
+        error: true,
+      };
+
+    case actionTypes.ENROLL_COURSE_START:
+      return {
+        ...state,
+        enrollingCourse: action.payload,
+      };
+
+    case actionTypes.ENROLL_COURSE_DONE:
+      return {
+        ...state,
+        enrollingCourse: null,
       };
 
     default:

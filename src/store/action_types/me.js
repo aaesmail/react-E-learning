@@ -1,3 +1,4 @@
 export const SET_ME = 'SET_ME';
 export const ADD_OWNED_COURSE = 'ADD_OWNED_COURSE';
 export const REMOVE_OWNED_COURSE = 'REMOVE_OWNED_COURSE';
+export const ADD_ENROLLED_COURSE = 'ADD_ENROLLED_COURSE';

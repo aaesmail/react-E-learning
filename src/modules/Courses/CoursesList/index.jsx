@@ -27,6 +27,7 @@ const CoursesList = () => {
 
   const pagesArray = [
     <Pagination.Prev
+      key="prev"
       onClick={() => changePage(page - 1)}
       disabled={page === 1}
     />,
@@ -45,6 +46,7 @@ const CoursesList = () => {
 
   pagesArray.push(
     <Pagination.Next
+      key="next"
       onClick={() => changePage(page + 1)}
       disabled={page === pages}
     />,
