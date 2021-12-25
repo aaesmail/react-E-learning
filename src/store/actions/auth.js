@@ -20,11 +20,11 @@ export const initAuth = () => {
     try {
       const response = await api.get('/users/me');
 
-      dispatch({ type: SET_ME, payload: response.data });
+      dispatch({ type: SET_ME, payload: response.data.data });
 
       dispatch({
         type: actionTypes.AUTH_INIT,
-        payload: { token, type: response.data.type },
+        payload: { token, type: response.data.data.type },
       });
     } catch {
       toast.error('Authentication Error!');
@@ -59,15 +59,15 @@ const _authenticate = (url, data, navigate) => {
     try {
       const response = await api.post(url, data);
 
-      localStorage.setItem('token', response.token);
+      localStorage.setItem('token', response.data.token);
 
-      api.defaults.headers.common['Authorization'] = response.token;
+      api.defaults.headers.common['Authorization'] = response.data.token;
 
       const userData = await api.get('/users/me');
-      dispatch({ type: SET_ME, payload: userData.data });
+      dispatch({ type: SET_ME, payload: userData.data.data });
 
       navigate('/');
-      dispatch({ type: actionTypes.AUTH_SUCCESS, payload: response });
+      dispatch({ type: actionTypes.AUTH_SUCCESS, payload: response.data });
     } catch (error) {
       dispatch({
         type: actionTypes.AUTH_FAIL,

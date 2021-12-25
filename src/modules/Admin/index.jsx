@@ -31,6 +31,7 @@ const Admin = () => {
             onChange={(event) => setUserId(event.target.value)}
             type="text"
             placeholder="User ID"
+            autoFocus
             value={userId}
           />
         </Form.Group>

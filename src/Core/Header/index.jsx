@@ -28,9 +28,14 @@ const Header = () => {
   ];
 
   const authenticatedLinks = [
+    <Nav.Link key="allcourses" as={Link} to="/courses">
+      All Courses
+    </Nav.Link>,
+
     <Nav.Link key="me" as={Link} to="/me">
       Me
     </Nav.Link>,
+
     <Nav.Link key="logout" onClick={logoutHandler}>
       Logout
     </Nav.Link>,
@@ -42,7 +47,7 @@ const Header = () => {
     </Nav.Link>,
   ];
 
-  const instructorLinks = [
+  const instructorAndAdminLinks = [
     <Nav.Link key="create" as={Link} to="/create">
       Create
     </Nav.Link>,
@@ -55,9 +60,11 @@ const Header = () => {
   if (authenticated) {
     if (admin) {
       links.push(...adminLinks);
-    } else if (instructor) {
-      links.push(...instructorLinks);
-    } else if (learner) {
+    } 
+    if (instructor || admin) {
+      links.push(...instructorAndAdminLinks);
+    }
+    if (learner) {
       links.push(...learnerLinks);
     }
 

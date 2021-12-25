@@ -42,7 +42,7 @@ const App = () => {
     <Route key="/admin" path="/admin" element={<Admin />} />,
   ];
 
-  const instructorRoutes = [
+  const instructorAndAdminRoutes = [
     <Route key="/create" path="/create" element={<Create />} />,
   ];
 
@@ -58,9 +58,11 @@ const App = () => {
 
   if (admin) {
     routes.push(...adminRoutes);
-  } else if (instructor) {
-    routes.push(...instructorRoutes);
-  } else if (learner) {
+  }
+  if (instructor || admin) {
+    routes.push(...instructorAndAdminRoutes);
+  }
+  if (learner) {
     routes.push(...learnerRoutes);
   }
 

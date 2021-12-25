@@ -28,6 +28,7 @@ const Create = () => {
             onChange={(event) => setTitle(event.target.value)}
             type="text"
             placeholder="Course Title"
+            autoFocus
             value={title}
           />
         </Form.Group>

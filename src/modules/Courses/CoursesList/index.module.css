@@ -1,0 +1,26 @@
+.container {
+  width: 100%;
+  text-align: center;
+  margin-top: 10vh;
+}
+
+.error {
+  color: red;
+  font-size: 1.5em;
+}
+
+.ownedCourses {
+  margin-top: 40px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}

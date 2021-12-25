@@ -11,7 +11,7 @@ export const createCourse = (title, syllabus) => {
     try {
       const course = await api.post('courses', { title, syllabus });
 
-      dispatch({ type: ADD_OWNED_COURSE, payload: course.data });
+      dispatch({ type: ADD_OWNED_COURSE, payload: course.data.data });
 
       toast.success('Course created successfully!');
     } catch {

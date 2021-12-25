@@ -51,6 +51,7 @@ const Signup = () => {
                 type="text"
                 placeholder="Username"
                 value={userInfo.username}
+                autoFocus
                 onChange={(event) =>
                   setUserInfo({ ...userInfo, username: event.target.value })
                 }

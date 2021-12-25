@@ -54,28 +54,34 @@ const Me = () => {
         </Card.Body>
       </Card>
 
-      <h2
-        style={{
-          marginTop: '40px',
-          marginBottom: '-40px',
-          textAlign: 'center',
-        }}
-      >
-        Owned Courses
-      </h2>
+      {type === 'instructor' || type === 'admin' ? (
+        <div>
+          <h2
+            style={{
+              marginTop: '40px',
+              marginBottom: '-40px',
+              textAlign: 'center',
+            }}
+          >
+            Owned Courses
+          </h2>
 
-      <div className={Classes.ownedCourses}>
-        {ownedCourses.length > 0
-          ? ownedCourses.map((course) => (
-              <CourseCard
-                key={course.id}
-                id={course.id}
-                title={course.title}
-                syllabus={course.syllabus}
-              />
-            ))
-          : null}
-      </div>
+          <div className={Classes.ownedCourses}>
+            {ownedCourses.length > 0 ? (
+              ownedCourses.map((course) => (
+                <CourseCard
+                  key={course.id}
+                  id={course.id}
+                  title={course.title}
+                  syllabus={course.syllabus}
+                />
+              ))
+            ) : (
+              <h4>No Courses Created Yet!</h4>
+            )}
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

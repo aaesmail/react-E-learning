@@ -49,6 +49,7 @@ const Login = () => {
                 type="text"
                 placeholder="Username"
                 value={username}
+                autoFocus
                 onChange={(event) => setUserName(event.target.value)}
               />
             </Form.Group>

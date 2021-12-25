@@ -6,7 +6,7 @@ const api = axios.create({
 
 api.interceptors.response.use(
   (response) => {
-    return Promise.resolve(response.data.data);
+    return Promise.resolve(response.data);
   },
   (error) => {
     if (error.response.status === 401) {
