@@ -17,6 +17,7 @@ const CoursesList = () => {
 
   const changePage = useCallback(
     (newPage) => {
+      window.scrollTo(0, 0, 'smooth');
       setSearchParams({ page: newPage });
     },
     [setSearchParams],
@@ -69,6 +70,7 @@ const CoursesList = () => {
                 id={course.id}
                 title={course.title}
                 syllabus={course.syllabus}
+                instructor={course.instructor}
               />
             ))}
           </div>

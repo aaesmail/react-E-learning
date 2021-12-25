@@ -27,6 +27,14 @@ const reducer = (state = initialState, action) => {
         ownedCourses: [...state.ownedCourses, action.payload],
       };
 
+    case actionTypes.REMOVE_OWNED_COURSE:
+      return {
+        ...state,
+        ownedCourses: state.ownedCourses.filter(
+          (course) => course.id !== action.payload,
+        ),
+      };
+
     default:
       return state;
   }

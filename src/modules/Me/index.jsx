@@ -22,6 +22,8 @@ const Me = () => {
   const month = bd.getMonth() + 1;
   const day = bd.getDate();
 
+  const showCourses = ownedCourses.map((course) => course);
+
   return (
     <div className={Classes.container}>
       <Card className={Classes.userInfo}>
@@ -68,14 +70,17 @@ const Me = () => {
 
           <div className={Classes.ownedCourses}>
             {ownedCourses.length > 0 ? (
-              ownedCourses.map((course) => (
-                <CourseCard
-                  key={course.id}
-                  id={course.id}
-                  title={course.title}
-                  syllabus={course.syllabus}
-                />
-              ))
+              showCourses
+                .reverse()
+                .map((course) => (
+                  <CourseCard
+                    key={course.id}
+                    id={course.id}
+                    title={course.title}
+                    syllabus={course.syllabus}
+                    instructor={course.instructor}
+                  />
+                ))
             ) : (
               <h4>No Courses Created Yet!</h4>
             )}

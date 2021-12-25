@@ -5,6 +5,7 @@ const initialState = {
   error: false,
   courses: [],
   pages: 1,
+  removingCourse: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -29,6 +30,18 @@ const reducer = (state = initialState, action) => {
         ...initialState,
         loading: false,
         error: true,
+      };
+
+    case actionTypes.DELETE_COURSE_START:
+      return {
+        ...state,
+        removingCourse: action.payload,
+      };
+
+    case actionTypes.DELETE_COURSE_DONE:
+      return {
+        ...state,
+        removingCourse: null,
       };
 
     default:
