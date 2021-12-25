@@ -1,5 +1,25 @@
 .container {
   width: 100%;
   margin-top: 40px;
-  text-align: center;
+}
+
+.group {
+  width: 80%;
+  margin-left: 10px;
+  margin-bottom: 50px;
+}
+
+.inp {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.btn {
+  margin-left: 10px;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  pointer-events: all;
 }

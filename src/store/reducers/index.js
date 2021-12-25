@@ -5,6 +5,7 @@ import admin from './admin';
 import me from './me';
 import create from './create';
 import courses from './courses';
+import comments from './comments';
 
 export default combineReducers({
   auth,
@@ -12,4 +13,5 @@ export default combineReducers({
   me,
   create,
   courses,
+  comments,
 });
