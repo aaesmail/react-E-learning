@@ -24,7 +24,12 @@ const CoursesList = () => {
 
   const page = +searchParams.get('page') || 1;
 
-  const pagesArray = [];
+  const pagesArray = [
+    <Pagination.Prev
+      onClick={() => changePage(page - 1)}
+      disabled={page === 1}
+    />,
+  ];
   for (let i = 1; i <= pages; i++) {
     pagesArray.push(
       <Pagination.Item
@@ -36,6 +41,13 @@ const CoursesList = () => {
       </Pagination.Item>,
     );
   }
+
+  pagesArray.push(
+    <Pagination.Next
+      onClick={() => changePage(page + 1)}
+      disabled={page === pages}
+    />,
+  );
 
   const dispatch = useDispatch();
   useEffect(() => {

@@ -8,7 +8,7 @@ export const fetchMe = () => {
     try {
       const response = await api.get('/users/me');
 
-      dispatch({ type: actionTypes.SET_ME, payload: response.data.data });
+      dispatch({ type: actionTypes.SET_ME, payload: response.data });
     } catch {
       toast.error('Failed to fetch user info');
     }

@@ -20,8 +20,8 @@ const reducer = (state = initialState, action) => {
         ...initialState,
         loading: false,
         error: false,
-        courses: action.payload.data.data,
-        pages: Math.ceil(+action.payload.results / 12),
+        courses: action.payload.data,
+        pages: Math.ceil(+action.payload.total / 12),
       };
 
     case actionTypes.FETCH_COURSES_FAIL:
