@@ -16,11 +16,7 @@ const Me = () => {
     ownedCourses,
   } = useSelector((state) => state.me);
 
-  const bd = new Date(birthDate);
-
-  const year = bd.getFullYear();
-  const month = bd.getMonth() + 1;
-  const day = bd.getDate();
+  const birthDateFormatted = new Date(birthDate).toLocaleDateString();
 
   const showCourses = ownedCourses.map((course) => course);
 
@@ -43,10 +39,7 @@ const Me = () => {
             <b>Email:</b> <i>{email}</i>
           </Card.Text>
           <Card.Text className={Classes.info}>
-            <b>Birthdate:</b>{' '}
-            <i>
-              {day}/{month}/{year}
-            </i>
+            <b>Birthdate:</b> <i>{birthDateFormatted}</i>
           </Card.Text>
           {type === 'instructor' ? (
             <Card.Text className={Classes.info}>

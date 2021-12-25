@@ -7,6 +7,8 @@ const initialState = {
   pages: 1,
   removingCourse: null,
   enrollingCourse: null,
+  unenrollingCourse: null,
+  updatingCourse: false,
   currentCourse: null,
 };
 
@@ -75,6 +77,39 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         enrollingCourse: null,
+      };
+
+    case actionTypes.UNENROLL_COURSE_START:
+      return {
+        ...state,
+        unenrollingCourse: action.payload,
+      };
+
+    case actionTypes.UNENROLL_COURSE_DONE:
+      return {
+        ...state,
+        unenrollingCourse: null,
+      };
+
+    case actionTypes.UPDATE_COURSE_START:
+      return {
+        ...state,
+        updatingCourse: true,
+      };
+
+    case actionTypes.UPDATE_COURSE_DONE:
+      return {
+        ...state,
+        updatingCourse: false,
+      };
+
+    case actionTypes.EDIT_CURRENT_COURSE:
+      return {
+        ...state,
+        currentCourse: {
+          ...state.currentCourse,
+          ...action.payload,
+        },
       };
 
     default:

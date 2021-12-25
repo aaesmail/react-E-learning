@@ -23,8 +23,9 @@ const Create = () => {
     <div className={Classes.container}>
       <Form className={Classes.form}>
         <Form.Group className={Classes.spacetop}>
-          <Form.Label>Title</Form.Label>
+          <Form.Label htmlFor="title">Title</Form.Label>
           <Form.Control
+            id="title"
             onChange={(event) => setTitle(event.target.value)}
             type="text"
             placeholder="Course Title"
@@ -34,8 +35,9 @@ const Create = () => {
         </Form.Group>
 
         <Form.Group className={Classes.syllabusgroup}>
-          <Form.Label>Syllabus</Form.Label>
+          <Form.Label htmlFor="syllabus">Syllabus</Form.Label>
           <Form.Control
+            id="syllabus"
             className={Classes.syllabus}
             onChange={(event) => setSyllabus(event.target.value)}
             as="textarea"

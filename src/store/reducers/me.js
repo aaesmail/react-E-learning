@@ -41,6 +41,14 @@ const reducer = (state = initialState, action) => {
         enrolledCourses: [...state.enrolledCourses, { id: action.payload }],
       };
 
+    case actionTypes.REMOVE_ENROLLED_COURSE:
+      return {
+        ...state,
+        enrolledCourses: state.enrolledCourses.filter(
+          (course) => course.id !== action.payload,
+        ),
+      };
+
     default:
       return state;
   }

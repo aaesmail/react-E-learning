@@ -1,0 +1,29 @@
+.container {
+  width: 100%;
+  text-align: center;
+}
+
+.form {
+  width: 100%;
+  text-align: center;
+}
+
+.group {
+  width: 200px;
+  margin: 0 auto;
+}
+
+.syllabus {
+  resize: none;
+  height: 200px;
+}
+
+.btn {
+  margin: auto;
+  margin-top: 20px;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  pointer-events: all;
+}
