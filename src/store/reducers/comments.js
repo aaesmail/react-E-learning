@@ -3,6 +3,8 @@ import * as actionTypes from '../action_types/comments';
 const initialState = {
   creatingQuestion: false,
   questions: [],
+  pages: 1,
+  deletingQuestion: null,
 };
 
 const reducer = (state = initialState, action) => {
@@ -19,6 +21,26 @@ const reducer = (state = initialState, action) => {
         creatingQuestion: false,
       };
 
+    case actionTypes.DELETE_QUESTION_START:
+      return {
+        ...state,
+        deletingQuestion: action.payload,
+      };
+
+    case actionTypes.DELETE_QUESTION_DONE:
+      return {
+        ...state,
+        deletingQuestion: null,
+      };
+
+    case actionTypes.REMOVE_QUESTION:
+      return {
+        ...state,
+        questions: state.questions.filter(
+          (question) => question.id !== action.payload,
+        ),
+      };
+
     case actionTypes.ADD_NEW_QUESTION:
       return {
         ...state,
@@ -28,7 +50,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.ADD_ALL_QUESTIONS:
       return {
         ...state,
-        questions: action.payload,
+        questions: action.payload.data,
+        pages: Math.ceil(action.payload.total / 10),
       };
 
     default:

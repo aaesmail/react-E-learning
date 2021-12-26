@@ -24,14 +24,31 @@ export const createQuestion = (courseId, title, description) => {
   };
 };
 
-export const getAllQuestions = (courseId) => {
+export const deleteQuestion = (courseId, questionId) => {
+  return async (dispatch) => {
+    dispatch({ type: actionTypes.DELETE_QUESTION_START, payload: questionId });
+
+    try {
+      await api.delete(`courses/${courseId}/questions/${questionId}`);
+
+      toast.success('Question deleted successfully!');
+      dispatch({ type: actionTypes.REMOVE_QUESTION, payload: questionId });
+    } catch {
+      toast.error('Error deleting question');
+    } finally {
+      dispatch({ type: actionTypes.DELETE_QUESTION_DONE });
+    }
+  };
+};
+
+export const getAllQuestions = (courseId, page) => {
   return async (dispatch) => {
     try {
       const response = await api.get(
-        `courses/${courseId}/questions?sort=-createdAt`,
+        `courses/${courseId}/questions?sort=-createdAt&page=${page}&limit=10`,
       );
 
-      dispatch({ type: actionTypes.ADD_ALL_QUESTIONS, payload: response.data });
+      dispatch({ type: actionTypes.ADD_ALL_QUESTIONS, payload: response });
     } catch {
       toast.error('Error getting questions');
     }

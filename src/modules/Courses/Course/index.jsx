@@ -48,7 +48,10 @@ const Course = () => {
         background={currentCourse.instructor.background}
       />
 
-      <CommentsSection courseId={currentCourse.id} />
+      <CommentsSection
+        courseId={currentCourse.id}
+        instructorId={currentCourse.instructor.id}
+      />
     </div>
   ) : null;
 };
