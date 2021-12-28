@@ -79,21 +79,7 @@ const CommentsSection = ({ courseId, instructorId }) => {
     <div className={Classes.container}>
       <h3 style={{ textAlign: 'center' }}>Questions</h3>
 
-      {questions.map((question) => (
-        <Question
-          key={question.id}
-          authorId={question.author.id}
-          courseId={courseId}
-          questionId={question.id}
-          title={question.title}
-          description={question.description}
-          createdAt={question.createdAt}
-          replies={question.replies}
-          userIsInCourse={userIsInCourse}
-        />
-      ))}
-
-      {userIsInCourse ? (
+      {userIsInCourse && page === 1 ? (
         <div className={Classes.group}>
           Add a new Question
           <div className={Classes.inp}>
@@ -130,9 +116,25 @@ const CommentsSection = ({ courseId, instructorId }) => {
         </div>
       ) : null}
 
-      <div className={Classes.pagination}>
-        <Pagination>{pagesArray}</Pagination>
-      </div>
+      {questions.map((question) => (
+        <Question
+          key={question.id}
+          authorId={question.author.id}
+          courseId={courseId}
+          questionId={question.id}
+          title={question.title}
+          description={question.description}
+          createdAt={question.createdAt}
+          replies={question.replies}
+          userIsInCourse={userIsInCourse}
+        />
+      ))}
+
+      {pages > 1 ? (
+        <div className={Classes.pagination}>
+          <Pagination>{pagesArray}</Pagination>
+        </div>
+      ) : null}
     </div>
   ) : null;
 };

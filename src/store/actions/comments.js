@@ -16,7 +16,10 @@ export const createQuestion = (courseId, title, description, page) => {
       dispatch({
         type: actionTypes.ADD_NEW_QUESTION,
         payload: {
-          question: response.data,
+          question: {
+            ...response.data,
+            author: { id: response.data.author },
+          },
           page,
         },
       });
@@ -57,6 +60,62 @@ export const getAllQuestions = (courseId, page) => {
       dispatch({ type: actionTypes.ADD_ALL_QUESTIONS, payload: response });
     } catch {
       toast.error('Error getting questions');
+    }
+  };
+};
+
+export const createReply = (courseId, questionId, reply) => {
+  return async (dispatch) => {
+    dispatch({ type: actionTypes.CREATE_REPLY_START, payload: questionId });
+
+    try {
+      const response = await api.post(
+        `courses/${courseId}/questions/${questionId}/replies`,
+        { reply },
+      );
+
+      dispatch({
+        type: actionTypes.ADD_NEW_REPLY,
+        payload: {
+          questionId,
+          reply: {
+            ...response.data,
+            author: { id: response.data.author },
+          },
+        },
+      });
+
+      toast.success('Reply created successfully!');
+    } catch {
+      toast.error('Error creating reply');
+    } finally {
+      dispatch({ type: actionTypes.CREATE_REPLY_DONE });
+    }
+  };
+};
+
+export const deleteReply = (courseId, questionId, replyId) => {
+  return async (dispatch) => {
+    dispatch({ type: actionTypes.DELETE_REPLY_START, payload: replyId });
+
+    try {
+      await api.delete(
+        `courses/${courseId}/questions/${questionId}/replies/${replyId}`,
+      );
+
+      dispatch({
+        type: actionTypes.REMOVE_REPLY,
+        payload: {
+          questionId,
+          replyId,
+        },
+      });
+
+      toast.success('Reply deleted successfully!');
+    } catch {
+      toast.error('Error deleting reply');
+    } finally {
+      dispatch({ type: actionTypes.DELETE_REPLY_DONE });
     }
   };
 };

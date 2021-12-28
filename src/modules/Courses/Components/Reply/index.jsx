@@ -1,27 +1,18 @@
-import { useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Button, Spinner } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Classes from './index.module.css';
-import RepliesSection from '../RepliesSection';
-import { deleteQuestion } from '../../../../store/actions/comments';
+import { deleteReply } from '../../../../store/actions/comments';
 
-const Question = ({
-  authorId,
+const Reply = ({
+  id,
   courseId,
   questionId,
-  authorName,
-  title,
-  description,
-  createdAt,
-  replies,
+  authorId,
   userIsInCourse,
+  reply,
+  createdAt,
 }) => {
-  const userId = useSelector((state) => state.me.id);
-  const deletingQuestion = useSelector(
-    (state) => state.comments.deletingQuestion,
-  );
-
   const dateCreated = new Date(createdAt);
   const formattedDate =
     ('00' + (dateCreated.getMonth() + 1)).slice(-2) +
@@ -36,45 +27,40 @@ const Question = ({
     ':' +
     ('00' + dateCreated.getSeconds()).slice(-2);
 
+  const userId = useSelector((state) => state.me.id);
+  const deletingReply = useSelector((state) => state.comments.deletingReply);
+
   const dispatch = useDispatch();
-  const deleteHandler = useCallback(() => {
-    dispatch(deleteQuestion(courseId, questionId));
-  }, [dispatch, courseId, questionId]);
+  const deleteHandler = () => {
+    dispatch(deleteReply(courseId, questionId, id));
+  };
 
   return (
     <div className={Classes.container}>
       <p>
-        <b style={{ fontSize: '20px', marginRight: '10px' }}>{title}</b>{' '}
         <i>({formattedDate})</i>
         {authorId === userId && userIsInCourse ? (
           <Button
-            disabled={deletingQuestion === questionId}
+            disabled={deletingReply === id}
             style={{ marginLeft: '10px' }}
             onClick={deleteHandler}
             variant="danger"
             size="sm"
           >
-            {deletingQuestion === questionId ? (
+            {deletingReply === id ? (
               <Spinner animation="border" size="sm" role="status">
                 <span className="visually-hidden">Deleting...</span>
               </Spinner>
             ) : (
-              'Delete Question'
+              'Delete Reply'
             )}
           </Button>
         ) : null}
       </p>
 
-      <p style={{ marginTop: '-15px' }}>{description}</p>
-
-      <RepliesSection
-        courseId={courseId}
-        questionId={questionId}
-        userIsInCourse={userIsInCourse}
-        replies={replies}
-      />
+      <p style={{ marginTop: '-15px' }}>{reply}</p>
     </div>
   );
 };
 
-export default Question;
+export default Reply;
