@@ -120,7 +120,7 @@ const CommentsSection = ({ courseId, instructorId }) => {
                   <span className="visually-hidden">Creating...</span>
                 </Spinner>
               ) : (
-                'Add'
+                'Ask'
               )}
             </Button>
           </div>

@@ -6,13 +6,14 @@ import Classes from './index.module.css';
 import Loading from '../../../Core/Loading';
 import CourseInfo from '../Components/CourseInfo';
 import InstructorInfo from '../Components/InstructorInfo';
+import ActivitySection from '../Components/ActivitySection';
 import CommentsSection from '../Components/CommentsSection';
 import { fetchCurrentCourse } from '../../../store/actions/courses';
 
 const Course = () => {
   const { courseId } = useParams();
 
-  const { currentCourse, loading, error } = useSelector(
+  const { currentCourse, loading, error, loadingActivities } = useSelector(
     (state) => state.courses,
   );
 
@@ -28,7 +29,7 @@ const Course = () => {
     return <Navigate to="/404" />;
   }
 
-  return loading ? (
+  return loading && !loadingActivities ? (
     <Loading />
   ) : currentCourse ? (
     <div className={Classes.container}>
@@ -46,6 +47,12 @@ const Course = () => {
         birthDate={currentCourse.instructor.birthDate}
         email={currentCourse.instructor.email}
         background={currentCourse.instructor.background}
+      />
+
+      <ActivitySection
+        courseId={currentCourse.id}
+        instructorId={currentCourse.instructor.id}
+        activities={currentCourse.activities}
       />
 
       <CommentsSection

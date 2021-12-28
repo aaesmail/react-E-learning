@@ -121,3 +121,97 @@ export const editCourse = (id, title, syllabus) => {
     }
   };
 };
+
+export const createVideoActivity = (courseId, title, description, url) => {
+  return async (dispatch) => {
+    dispatch({ type: actionTypes.CREATE_ACTIVITY_START });
+
+    try {
+      const response = await api.post(`courses/${courseId}/activities/video`, {
+        title,
+        description,
+        url,
+      });
+
+      dispatch({
+        type: actionTypes.ADD_NEW_ACTIVITY,
+        payload: response.data,
+      });
+
+      toast.success('Video Activity created!');
+    } catch {
+      toast.error("Couldn't create Video Activity!");
+    } finally {
+      dispatch({ type: actionTypes.CREATE_ACTIVITY_DONE });
+    }
+  };
+};
+
+export const deleteVideoActivity = (courseId, activityId) => {
+  return async (dispatch) => {
+    dispatch({ type: actionTypes.DELETE_ACTIVITY_START });
+
+    try {
+      await api.delete(`courses/${courseId}/activities/video/${activityId}`);
+
+      dispatch({ type: actionTypes.REMOVE_ACTIVITY, payload: activityId });
+
+      toast.success('Video Activity deleted!');
+    } catch {
+      toast.error("Couldn't delete Video Activity!");
+    } finally {
+      dispatch({ type: actionTypes.DELETE_ACTIVITY_DONE });
+    }
+  };
+};
+
+export const createPdfActivity = (courseId, title, description, file) => {
+  return async (dispatch) => {
+    dispatch({ type: actionTypes.CREATE_ACTIVITY_START });
+
+    try {
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('description', description);
+      formData.append('file', file);
+
+      const response = await api.post(
+        `courses/${courseId}/activities/pdf`,
+        formData,
+      );
+
+      dispatch({
+        type: actionTypes.ADD_NEW_ACTIVITY,
+        payload: response.data,
+      });
+
+      toast.success('Pdf Activity created!');
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      dispatch({ type: actionTypes.CREATE_ACTIVITY_DONE });
+    }
+  };
+};
+
+export const deletePdfActivity = (courseId, activityId) => {
+  return async (dispatch) => {
+    dispatch({ type: actionTypes.DELETE_ACTIVITY_START });
+
+    try {
+      await api.delete(`courses/${courseId}/activities/pdf/${activityId}`);
+
+      dispatch({ type: actionTypes.REMOVE_ACTIVITY, payload: activityId });
+
+      toast.success('Pdf Activity deleted!');
+    } catch {
+      toast.error("Couldn't delete Pdf Activity!");
+    } finally {
+      dispatch({ type: actionTypes.DELETE_ACTIVITY_DONE });
+    }
+  };
+};
+
+export const loadActivities = () => {
+  return { type: actionTypes.LOAD_ACTIVITIES };
+};

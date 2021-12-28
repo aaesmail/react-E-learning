@@ -1,0 +1,23 @@
+.container {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.dropdown {
+  margin: 20px 0;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  pointer-events: all;
+}

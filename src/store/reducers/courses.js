@@ -3,6 +3,7 @@ import * as actionTypes from '../action_types/courses';
 const initialState = {
   loading: false,
   error: false,
+  loadingActivities: false,
   courses: [],
   pages: 1,
   removingCourse: null,
@@ -10,13 +11,16 @@ const initialState = {
   unenrollingCourse: null,
   updatingCourse: false,
   currentCourse: null,
+  creatingActivity: false,
+  deletingActivity: null,
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_COURSES_START:
       return {
-        ...initialState,
+        ...state,
+        error: false,
         loading: true,
       };
 
@@ -50,8 +54,9 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.FETCH_CURRENT_COURSE_START:
       return {
-        ...initialState,
+        ...state,
         loading: true,
+        error: false,
       };
 
     case actionTypes.FETCH_CURRENT_COURSE_SUCCESS:
@@ -65,6 +70,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...initialState,
         error: true,
+      };
+
+    case actionTypes.LOAD_ACTIVITIES:
+      return {
+        ...state,
+        loadingActivities: true,
       };
 
     case actionTypes.ENROLL_COURSE_START:
@@ -109,6 +120,50 @@ const reducer = (state = initialState, action) => {
         currentCourse: {
           ...state.currentCourse,
           ...action.payload,
+        },
+      };
+
+    case actionTypes.CREATE_ACTIVITY_START:
+      return {
+        ...state,
+        creatingActivity: true,
+      };
+
+    case actionTypes.CREATE_ACTIVITY_DONE:
+      return {
+        ...state,
+        creatingActivity: false,
+      };
+
+    case actionTypes.DELETE_ACTIVITY_START:
+      return {
+        ...state,
+        deletingActivity: action.payload,
+      };
+
+    case actionTypes.DELETE_ACTIVITY_DONE:
+      return {
+        ...state,
+        deletingActivity: null,
+      };
+
+    case actionTypes.ADD_NEW_ACTIVITY:
+      return {
+        ...state,
+        currentCourse: {
+          ...state.currentCourse,
+          activities: [action.payload, ...state.currentCourse.activities],
+        },
+      };
+
+    case actionTypes.REMOVE_ACTIVITY:
+      return {
+        ...state,
+        currentCourse: {
+          ...state.currentCourse,
+          activities: state.currentCourse.activities.filter(
+            (activity) => activity.id !== action.payload,
+          ),
         },
       };
 

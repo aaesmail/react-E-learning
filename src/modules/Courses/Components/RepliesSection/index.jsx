@@ -17,6 +17,8 @@ const RepliesSection = ({ courseId, questionId, userIsInCourse, replies }) => {
   const createReplyHandler = () =>
     dispatch(createReply(courseId, questionId, newReply, firstName, lastName));
 
+  const replyDisabled = creatingReply === questionId || !newReply;
+
   return (
     <div className={Classes.container}>
       {replies.map((reply) => (
@@ -43,7 +45,7 @@ const RepliesSection = ({ courseId, questionId, userIsInCourse, replies }) => {
             />
 
             <Button
-              disabled={creatingReply === questionId}
+              disabled={replyDisabled}
               className={Classes.btn}
               variant="primary"
               onClick={createReplyHandler}
