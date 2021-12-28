@@ -44,8 +44,19 @@ const CommentsSection = ({ courseId, instructorId }) => {
     dispatch(getAllQuestions(courseId, page));
   }, [dispatch, courseId, page]);
 
+  const { firstName, lastName } = useSelector((state) => state.me);
+
   const addQuestionhandler = () => {
-    dispatch(createQuestion(courseId, questionTitle, questionDesc, page));
+    dispatch(
+      createQuestion(
+        courseId,
+        questionTitle,
+        questionDesc,
+        page,
+        firstName,
+        lastName,
+      ),
+    );
   };
 
   const pagesArray = [
@@ -122,6 +133,9 @@ const CommentsSection = ({ courseId, instructorId }) => {
           authorId={question.author.id}
           courseId={courseId}
           questionId={question.id}
+          authorName={
+            question.author.firstName + ' ' + question.author.lastName
+          }
           title={question.title}
           description={question.description}
           createdAt={question.createdAt}

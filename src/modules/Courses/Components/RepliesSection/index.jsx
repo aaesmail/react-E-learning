@@ -11,9 +11,11 @@ const RepliesSection = ({ courseId, questionId, userIsInCourse, replies }) => {
 
   const { creatingReply } = useSelector((state) => state.comments);
 
+  const { firstName, lastName } = useSelector((state) => state.me);
+
   const dispatch = useDispatch();
   const createReplyHandler = () =>
-    dispatch(createReply(courseId, questionId, newReply));
+    dispatch(createReply(courseId, questionId, newReply, firstName, lastName));
 
   return (
     <div className={Classes.container}>
@@ -23,7 +25,7 @@ const RepliesSection = ({ courseId, questionId, userIsInCourse, replies }) => {
           id={reply.id}
           courseId={courseId}
           questionId={questionId}
-          authorId={reply.author.id}
+          author={reply.author}
           userIsInCourse={userIsInCourse}
           reply={reply.reply}
           createdAt={reply.createdAt}

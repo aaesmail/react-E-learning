@@ -87,7 +87,7 @@ export const fetchCurrentCourse = (id, page) => {
 
     try {
       const response = await api.get(
-        `courses/${id}?page=${page}&limit=5&sort=-createdAt`,
+        `courses/${id}?page=${page}&limit=10&sort=-createdAt`,
       );
 
       dispatch({

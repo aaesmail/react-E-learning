@@ -3,7 +3,14 @@ import { toast } from 'react-toastify';
 import api from '../../api';
 import * as actionTypes from '../action_types/comments';
 
-export const createQuestion = (courseId, title, description, page) => {
+export const createQuestion = (
+  courseId,
+  title,
+  description,
+  page,
+  firstName,
+  lastName,
+) => {
   return async (dispatch) => {
     dispatch({ type: actionTypes.CREATE_QUESTION_START });
 
@@ -18,7 +25,7 @@ export const createQuestion = (courseId, title, description, page) => {
         payload: {
           question: {
             ...response.data,
-            author: { id: response.data.author },
+            author: { id: response.data.author, firstName, lastName },
           },
           page,
         },
@@ -64,7 +71,13 @@ export const getAllQuestions = (courseId, page) => {
   };
 };
 
-export const createReply = (courseId, questionId, reply) => {
+export const createReply = (
+  courseId,
+  questionId,
+  reply,
+  firstName,
+  lastName,
+) => {
   return async (dispatch) => {
     dispatch({ type: actionTypes.CREATE_REPLY_START, payload: questionId });
 
@@ -80,7 +93,7 @@ export const createReply = (courseId, questionId, reply) => {
           questionId,
           reply: {
             ...response.data,
-            author: { id: response.data.author },
+            author: { id: response.data.author, firstName, lastName },
           },
         },
       });

@@ -77,9 +77,11 @@ const CoursesList = () => {
             ))}
           </div>
 
-          <div className={Classes.pagination}>
-            <Pagination>{pagesArray}</Pagination>
-          </div>
+          {pages > 1 ? (
+            <div className={Classes.pagination}>
+              <Pagination>{pagesArray}</Pagination>
+            </div>
+          ) : null}
         </div>
       )}
     </div>

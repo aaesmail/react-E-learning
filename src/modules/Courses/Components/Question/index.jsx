@@ -45,7 +45,9 @@ const Question = ({
     <div className={Classes.container}>
       <p>
         <b style={{ fontSize: '20px', marginRight: '10px' }}>{title}</b>{' '}
-        <i>({formattedDate})</i>
+        <i>
+          {authorName} ({formattedDate})
+        </i>
         {authorId === userId && userIsInCourse ? (
           <Button
             disabled={deletingQuestion === questionId}

@@ -58,7 +58,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...initialState,
         currentCourse: action.payload,
-        pages: Math.ceil(action.payload.total_activities / 5),
+        pages: Math.ceil(action.payload.total_activities / 10),
       };
 
     case actionTypes.FETCH_CURRENT_COURSE_FAIL:

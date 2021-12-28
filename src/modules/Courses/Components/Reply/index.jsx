@@ -8,7 +8,7 @@ const Reply = ({
   id,
   courseId,
   questionId,
-  authorId,
+  author,
   userIsInCourse,
   reply,
   createdAt,
@@ -38,8 +38,10 @@ const Reply = ({
   return (
     <div className={Classes.container}>
       <p>
-        <i>({formattedDate})</i>
-        {authorId === userId && userIsInCourse ? (
+        <i>
+          {author.firstName} {author.lastName} ({formattedDate})
+        </i>
+        {author.id === userId && userIsInCourse ? (
           <Button
             disabled={deletingReply === id}
             style={{ marginLeft: '10px' }}
