@@ -42,10 +42,7 @@ const reducer = (state = initialState, action) => {
       };
 
     case actionTypes.ADD_NEW_QUESTION:
-      return {
-        ...state,
-        questions: [action.payload, ...state.questions],
-      };
+      return _addNewQuestion(state, action);
 
     case actionTypes.ADD_ALL_QUESTIONS:
       return {
@@ -57,6 +54,16 @@ const reducer = (state = initialState, action) => {
     default:
       return state;
   }
+};
+
+const _addNewQuestion = (state, action) => {
+  if (action.payload.page === 1)
+    return {
+      ...state,
+      questions: [action.payload.question, ...state.questions.slice(0, -1)],
+    };
+
+  return state;
 };
 
 export default reducer;

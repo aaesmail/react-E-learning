@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import api from '../../api';
 import * as actionTypes from '../action_types/comments';
 
-export const createQuestion = (courseId, title, description) => {
+export const createQuestion = (courseId, title, description, page) => {
   return async (dispatch) => {
     dispatch({ type: actionTypes.CREATE_QUESTION_START });
 
@@ -13,7 +13,13 @@ export const createQuestion = (courseId, title, description) => {
         description,
       });
 
-      dispatch({ type: actionTypes.ADD_NEW_QUESTION, payload: response.data });
+      dispatch({
+        type: actionTypes.ADD_NEW_QUESTION,
+        payload: {
+          question: response.data,
+          page,
+        },
+      });
 
       toast.success('Question created successfully!');
     } catch {

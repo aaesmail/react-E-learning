@@ -45,7 +45,7 @@ const CommentsSection = ({ courseId, instructorId }) => {
   }, [dispatch, courseId, page]);
 
   const addQuestionhandler = () => {
-    dispatch(createQuestion(courseId, questionTitle, questionDesc));
+    dispatch(createQuestion(courseId, questionTitle, questionDesc, page));
   };
 
   const pagesArray = [
