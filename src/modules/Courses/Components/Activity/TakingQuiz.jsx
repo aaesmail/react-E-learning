@@ -27,15 +27,17 @@ const TakingQuiz = () => {
     return <Navigate to={`/courses/${courseId}`} />;
   }
 
-  const { quizId, quiz, title, description } = mainObject;
+  const { quizId, quiz, title, description, page, comment_page } = mainObject;
 
   const handleSubmit = () => {
-    dispatch(submitQuiz(courseId, quizId, answers, navigate));
+    dispatch(
+      submitQuiz(courseId, quizId, answers, navigate, page, comment_page),
+    );
   };
 
   const handleCancel = () => {
     dispatch(endQuiz());
-    navigate(`/courses/${courseId}`);
+    navigate(`/courses/${courseId}?page=${page}&comment_page=${comment_page}`);
   };
 
   const changeAnswer = (index, newValue) => {

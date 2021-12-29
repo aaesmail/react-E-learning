@@ -154,7 +154,7 @@ export const createVideoActivity = (courseId, title, description, url) => {
 
 export const deleteVideoActivity = (courseId, activityId, page) => {
   return async (dispatch) => {
-    dispatch({ type: actionTypes.DELETE_ACTIVITY_START });
+    dispatch({ type: actionTypes.DELETE_ACTIVITY_START, payload: activityId });
 
     try {
       await api.delete(`courses/${courseId}/activities/video/${activityId}`);
@@ -204,7 +204,7 @@ export const createPdfActivity = (courseId, title, description, file) => {
 
 export const deletePdfActivity = (courseId, activityId, page) => {
   return async (dispatch) => {
-    dispatch({ type: actionTypes.DELETE_ACTIVITY_START });
+    dispatch({ type: actionTypes.DELETE_ACTIVITY_START, payload: activityId });
 
     try {
       await api.delete(`courses/${courseId}/activities/pdf/${activityId}`);
@@ -257,7 +257,7 @@ export const createQuizActivity = (
 
 export const deleteQuizActivity = (courseId, activityId, page) => {
   return async (dispatch) => {
-    dispatch({ type: actionTypes.DELETE_ACTIVITY_START });
+    dispatch({ type: actionTypes.DELETE_ACTIVITY_START, payload: activityId });
 
     try {
       await api.delete(`courses/${courseId}/activities/quiz/${activityId}`);
@@ -276,10 +276,18 @@ export const deleteQuizActivity = (courseId, activityId, page) => {
   };
 };
 
-export const takeQuiz = (courseId, quizId, quiz, title, description) => {
+export const takeQuiz = (
+  courseId,
+  quizId,
+  quiz,
+  title,
+  description,
+  page,
+  comment_page,
+) => {
   return {
     type: actionTypes.TAKE_QUIZ_START,
-    payload: { courseId, quizId, quiz, title, description },
+    payload: { courseId, quizId, quiz, title, description, page, comment_page },
   };
 };
 
@@ -289,7 +297,14 @@ export const endQuiz = () => {
   };
 };
 
-export const submitQuiz = (courseId, quizId, answers, navigate) => {
+export const submitQuiz = (
+  courseId,
+  quizId,
+  answers,
+  navigate,
+  page,
+  comment_page,
+) => {
   return async (dispatch) => {
     dispatch({ type: actionTypes.SUBMIT_QUIZ_START });
 
@@ -301,6 +316,10 @@ export const submitQuiz = (courseId, quizId, answers, navigate) => {
         },
       );
 
+      navigate(
+        `/courses/${courseId}?page=${page}&comment_page=${comment_page}`,
+      );
+
       toast.success('Quiz submitted!');
 
       dispatch(endQuiz());
@@ -309,8 +328,6 @@ export const submitQuiz = (courseId, quizId, answers, navigate) => {
         type: actionTypes.ADD_GRADE,
         payload: { quizId, grade: response.grade },
       });
-
-      navigate(`/courses/${courseId}`);
     } catch {
       toast.error("Couldn't submit quiz!");
     } finally {

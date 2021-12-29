@@ -1,6 +1,7 @@
 import * as actionTypes from '../action_types/comments';
 
 const initialState = {
+  loading: false,
   creatingQuestion: false,
   creatingReply: null,
   questions: [],
@@ -45,6 +46,18 @@ const reducer = (state = initialState, action) => {
 
     case actionTypes.ADD_NEW_QUESTION:
       return _addNewQuestion(state, action);
+
+    case actionTypes.FETCH_QUESTIONS_START:
+      return {
+        ...initialState,
+        loading: true,
+      };
+
+    case actionTypes.FETCH_QUESTIONS_DONE:
+      return {
+        ...state,
+        loading: false,
+      };
 
     case actionTypes.ADD_ALL_QUESTIONS:
       return {

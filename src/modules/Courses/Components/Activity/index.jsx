@@ -2,7 +2,7 @@ import Video from './Video';
 import Pdf from './Pdf';
 import Quiz from './Quiz';
 
-const Activity = ({ courseId, ownsCourse, activity, page }) => {
+const Activity = ({ courseId, ownsCourse, activity, page, comment_page }) => {
   const dateCreated = new Date(activity.createdAt);
   const formattedDate =
     ('00' + (dateCreated.getMonth() + 1)).slice(-2) +
@@ -50,6 +50,7 @@ const Activity = ({ courseId, ownsCourse, activity, page }) => {
       grades={activity.grades}
       quiz={activity.quiz}
       page={page}
+      comment_page={comment_page}
     />
   ) : (
     <div>Unknown Activity</div>

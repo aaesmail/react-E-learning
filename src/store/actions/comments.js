@@ -31,6 +31,8 @@ export const createQuestion = (
         },
       });
 
+      dispatch(getAllQuestions(courseId, page));
+
       toast.success('Question created successfully!');
     } catch {
       toast.error('Error creating question');
@@ -61,6 +63,7 @@ export const deleteQuestion = (courseId, questionId, page) => {
 
 export const getAllQuestions = (courseId, page) => {
   return async (dispatch) => {
+    dispatch({ type: actionTypes.FETCH_QUESTIONS_START });
     try {
       const response = await api.get(
         `courses/${courseId}/questions?sort=-createdAt&page=${page}&limit=10`,
@@ -69,6 +72,8 @@ export const getAllQuestions = (courseId, page) => {
       dispatch({ type: actionTypes.ADD_ALL_QUESTIONS, payload: response });
     } catch {
       toast.error('Error getting questions');
+    } finally {
+      dispatch({ type: actionTypes.FETCH_QUESTIONS_DONE });
     }
   };
 };

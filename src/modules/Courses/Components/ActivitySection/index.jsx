@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Navigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Pagination, Spinner } from 'react-bootstrap';
 
@@ -17,6 +17,7 @@ const ActivitySection = ({ courseId, instructorId, activities }) => {
 
   const [searchParams, setSearchParams] = useSearchParams();
   const page = +searchParams.get('page') || 1;
+  const comment_page = +searchParams.get('comment_page') || 1;
 
   const dispatch = useDispatch();
   const changePage = useCallback(
@@ -74,8 +75,15 @@ const ActivitySection = ({ courseId, instructorId, activities }) => {
           ownsCourse={userOwnsCourse}
           activity={activity}
           page={page}
+          comment_page={comment_page}
         />
       ))}
+
+      {page > pages ? (
+        <Navigate
+          to={`/courses/${courseId}?page=${pages}&comment_page=${comment_page}`}
+        />
+      ) : null}
 
       {pages > 1 ? (
         <div className={Classes.pagination}>

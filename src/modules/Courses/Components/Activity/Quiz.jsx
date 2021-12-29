@@ -18,6 +18,7 @@ const Quiz = ({
   grades,
   quiz,
   page,
+  comment_page,
 }) => {
   const deletingActivity = useSelector(
     (state) => state.courses.deletingActivity,
@@ -31,7 +32,9 @@ const Quiz = ({
   const navigate = useNavigate();
 
   const takeQuizHandler = () => {
-    dispatch(takeQuiz(courseId, id, quiz, title, description));
+    dispatch(
+      takeQuiz(courseId, id, quiz, title, description, page, comment_page),
+    );
     navigate('quiz');
   };
 
