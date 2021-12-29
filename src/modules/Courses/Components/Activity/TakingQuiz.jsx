@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, Navigate, useParams } from 'react-router-dom';
 import { Button, FormCheck, Spinner } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 import Classes from './index.module.css';
 import { submitQuiz, endQuiz } from '../../../../store/actions/courses';
@@ -15,6 +16,12 @@ const TakingQuiz = () => {
   const [answers, setAnswers] = useState(
     mainObject && mainObject.quiz ? mainObject.quiz.map(() => -1) : [],
   );
+
+  useEffect(() => {
+    if (!mainObject) {
+      toast.error("Please don't refresh while taking your quiz!");
+    }
+  });
 
   if (!mainObject) {
     return <Navigate to={`/courses/${courseId}`} />;

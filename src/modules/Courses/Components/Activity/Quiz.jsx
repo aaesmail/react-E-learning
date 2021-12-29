@@ -65,7 +65,7 @@ const Quiz = ({
         ) : null}
       </h5>
       {grades.length > 0 ? <b>Grade: {Math.ceil(grades[0].grade)}%</b> : null}{' '}
-      <span>{description}</span>
+      <span style={{ marginTop: '10px' }}>{description}</span>
       {canTakeQuiz ? (
         <span style={{ marginTop: '20px' }}>
           <Button onClick={takeQuizHandler} variant="primary">
