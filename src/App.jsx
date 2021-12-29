@@ -18,7 +18,7 @@ const NotFound = lazy(() => import('./modules/NotFound'));
 
 const App = () => {
   const dispatch = useDispatch();
-  const { authenticated, admin, instructor, learner, init } = useSelector(
+  const { authenticated, admin, instructor, init } = useSelector(
     (state) => state.auth,
   );
 
@@ -46,10 +46,6 @@ const App = () => {
     <Route key="/create" path="/create" element={<Create />} />,
   ];
 
-  const learnerRoutes = [
-
-  ];
-
   if (authenticated) {
     routes.push(...authRoutes);
   } else {
@@ -62,14 +58,10 @@ const App = () => {
   if (instructor || admin) {
     routes.push(...instructorAndAdminRoutes);
   }
-  if (learner) {
-    routes.push(...learnerRoutes);
-  }
 
   if (init) {
     routes.push(<Route key="*" path="*" element={<Loading />} />);
-  }
-  else {
+  } else {
     routes.push(<Route key="*" path="*" element={<Navigate to="/404" />} />);
   }
 

@@ -7,7 +7,7 @@ import Classes from './index.module.css';
 import brandImage from '../../images/brand.png';
 
 const Header = () => {
-  const { authenticated, admin, instructor, learner } = useSelector(
+  const { authenticated, admin, instructor } = useSelector(
     (state) => state.auth,
   );
   const dispatch = useDispatch();
@@ -53,19 +53,12 @@ const Header = () => {
     </Nav.Link>,
   ];
 
-  const learnerLinks = [
-    
-  ];
-
   if (authenticated) {
     if (admin) {
       links.push(...adminLinks);
-    } 
+    }
     if (instructor || admin) {
       links.push(...instructorAndAdminLinks);
-    }
-    if (learner) {
-      links.push(...learnerLinks);
     }
 
     links.push(...authenticatedLinks);
