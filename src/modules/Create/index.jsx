@@ -49,6 +49,7 @@ const Create = () => {
         <Button
           onClick={submitHandler}
           variant="primary"
+          style={{ marginBottom: '30px' }}
           className={Classes.btn}
           disabled={submitDisabled}
           type="submit"

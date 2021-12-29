@@ -61,3 +61,14 @@
   cursor: not-allowed;
   pointer-events: all;
 }
+
+.dltBtn {
+  margin-left: 10px;
+}
+
+@media (max-width: 500px) {
+  .dltBtn {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}

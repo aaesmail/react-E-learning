@@ -45,7 +45,7 @@ const Home = () => {
 
   return (
     <div className={Classes.wrapper}>
-      <img src={HeroImage} alt="Hero" />
+      <img className={Classes.img} src={HeroImage} alt="Hero" />
 
       {content}
     </div>

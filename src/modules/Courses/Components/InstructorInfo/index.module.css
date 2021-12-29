@@ -13,3 +13,18 @@
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+.spaceLeft {
+  margin-left: 30px;
+}
+
+@media (max-width: 500px) {
+  .section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .spaceLeft {
+    margin-left: 0;
+  }
+}

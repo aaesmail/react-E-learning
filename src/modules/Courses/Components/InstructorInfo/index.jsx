@@ -22,11 +22,11 @@ const InstructorInfo = ({
           </b>
         </h5>
 
-        <h6 style={{ marginLeft: '30px' }}>
+        <h6 className={Classes.spaceLeft}>
           Email: <b>{email}</b>
         </h6>
 
-        <h6 style={{ marginLeft: '30px' }}>Birthdate: {birthDateFormatted}</h6>
+        <h6 className={Classes.spaceLeft}>Birthdate: {birthDateFormatted}</h6>
       </div>
 
       {background ? (

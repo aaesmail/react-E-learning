@@ -44,11 +44,8 @@ const Question = ({
 
   return (
     <div className={Classes.container}>
-      <p>
-        <b style={{ fontSize: '20px', marginRight: '10px' }}>{title}</b>{' '}
-        <i>
-          {authorName} ({formattedDate})
-        </i>
+      <p className={Classes.topPart}>
+        <b className={Classes.title}>{title}</b> <i>{authorName}</i>
         {authorId === userId && userIsInCourse ? (
           <Button
             disabled={deletingQuestion === questionId}
@@ -68,7 +65,9 @@ const Question = ({
         ) : null}
       </p>
 
-      <p style={{ marginTop: '-15px' }}>{description}</p>
+      <i>({formattedDate})</i>
+
+      <p>{description}</p>
 
       <RepliesSection
         courseId={courseId}

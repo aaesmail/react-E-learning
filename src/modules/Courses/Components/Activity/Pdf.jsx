@@ -30,7 +30,7 @@ const Pdf = ({
         {ownsCourse ? (
           <Button
             disabled={deletingActivity === id}
-            style={{ marginLeft: '10px' }}
+            className={Classes.dltBtn}
             onClick={deleteHandler}
             variant="danger"
             size="sm"

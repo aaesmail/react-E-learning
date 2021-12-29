@@ -29,8 +29,8 @@ const Video = ({
         {title} <i>({createdAt})</i>{' '}
         {ownsCourse ? (
           <Button
+            className={Classes.dltBtn}
             disabled={deletingActivity === id}
-            style={{ marginLeft: '10px' }}
             onClick={deleteHandler}
             variant="danger"
             size="sm"
