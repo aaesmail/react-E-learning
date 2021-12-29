@@ -13,6 +13,8 @@ const initialState = {
   currentCourse: null,
   creatingActivity: false,
   deletingActivity: null,
+  takingQuiz: null,
+  submittingQuiz: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -164,6 +166,57 @@ const reducer = (state = initialState, action) => {
           activities: state.currentCourse.activities.filter(
             (activity) => activity.id !== action.payload,
           ),
+        },
+      };
+
+    case actionTypes.TAKE_QUIZ_START:
+      return {
+        ...state,
+        takingQuiz: action.payload,
+      };
+
+    case actionTypes.TAKE_QUIZ_DONE:
+      return {
+        ...state,
+        takingQuiz: null,
+      };
+
+    case actionTypes.SUBMIT_QUIZ_START:
+      return {
+        ...state,
+        submittingQuiz: true,
+      };
+
+    case actionTypes.SUBMIT_QUIZ_DONE:
+      return {
+        ...state,
+        submittingQuiz: false,
+      };
+
+    case actionTypes.ADD_GRADE:
+      return {
+        ...state,
+        currentCourse: {
+          ...state.currentCourse,
+          activities: state.currentCourse.activities.map((activity) => {
+            if (activity.id === action.payload.quizId) {
+              if (activity.grades.length > 0) {
+                return {
+                  ...activity,
+                  grades:
+                    activity.grades[0].grade > action.payload.grade
+                      ? activity.grades
+                      : [action.payload],
+                };
+              } else {
+                return {
+                  ...activity,
+                  grades: [action.payload],
+                };
+              }
+            }
+            return activity;
+          }),
         },
       };
 

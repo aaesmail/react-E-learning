@@ -14,3 +14,50 @@
   text-decoration: none;
   color: burlywood;
 }
+
+.quiz {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 16px 0;
+}
+
+.buttons {
+  display: flex;
+  margin-top: 30px;
+}
+
+.questions {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.question {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.choices {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+}
+
+.choice input {
+  margin-right: 5px;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  pointer-events: all;
+}

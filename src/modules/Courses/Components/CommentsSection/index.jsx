@@ -141,6 +141,7 @@ const CommentsSection = ({ courseId, instructorId }) => {
           createdAt={question.createdAt}
           replies={question.replies}
           userIsInCourse={userIsInCourse}
+          page={page}
         />
       ))}
 

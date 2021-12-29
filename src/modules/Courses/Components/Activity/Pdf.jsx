@@ -12,6 +12,7 @@ const Pdf = ({
   description,
   createdAt,
   url,
+  page,
 }) => {
   const deletingActivity = useSelector(
     (state) => state.courses.deletingActivity,
@@ -19,7 +20,7 @@ const Pdf = ({
 
   const dispatch = useDispatch();
   const deleteHandler = () => {
-    dispatch(deletePdfActivity(courseId, id));
+    dispatch(deletePdfActivity(courseId, id, page));
   };
 
   return (

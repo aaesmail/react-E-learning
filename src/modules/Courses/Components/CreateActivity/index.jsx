@@ -37,7 +37,7 @@ const CreateActivity = ({ courseId }) => {
           ) : type === 'PdfActivity' ? (
             <Pdf courseId={courseId} disableEdit={disableEditHandler} />
           ) : type === 'QuizActivity' ? (
-            <Quiz />
+            <Quiz courseId={courseId} disableEdit={disableEditHandler} />
           ) : null}
         </div>
       ) : null}

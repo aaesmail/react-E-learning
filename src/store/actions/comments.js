@@ -40,7 +40,7 @@ export const createQuestion = (
   };
 };
 
-export const deleteQuestion = (courseId, questionId) => {
+export const deleteQuestion = (courseId, questionId, page) => {
   return async (dispatch) => {
     dispatch({ type: actionTypes.DELETE_QUESTION_START, payload: questionId });
 
@@ -49,6 +49,8 @@ export const deleteQuestion = (courseId, questionId) => {
 
       toast.success('Question deleted successfully!');
       dispatch({ type: actionTypes.REMOVE_QUESTION, payload: questionId });
+
+      dispatch(getAllQuestions(courseId, page));
     } catch {
       toast.error('Error deleting question');
     } finally {

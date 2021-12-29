@@ -12,6 +12,7 @@ const Video = ({
   description,
   createdAt,
   url,
+  page,
 }) => {
   const deletingActivity = useSelector(
     (state) => state.courses.deletingActivity,
@@ -19,7 +20,7 @@ const Video = ({
 
   const dispatch = useDispatch();
   const deleteHandler = () => {
-    dispatch(deleteVideoActivity(courseId, id));
+    dispatch(deleteVideoActivity(courseId, id, page));
   };
 
   return (

@@ -16,6 +16,7 @@ const Question = ({
   createdAt,
   replies,
   userIsInCourse,
+  page,
 }) => {
   const userId = useSelector((state) => state.me.id);
   const deletingQuestion = useSelector(
@@ -38,8 +39,8 @@ const Question = ({
 
   const dispatch = useDispatch();
   const deleteHandler = useCallback(() => {
-    dispatch(deleteQuestion(courseId, questionId));
-  }, [dispatch, courseId, questionId]);
+    dispatch(deleteQuestion(courseId, questionId, page));
+  }, [dispatch, courseId, questionId, page]);
 
   return (
     <div className={Classes.container}>

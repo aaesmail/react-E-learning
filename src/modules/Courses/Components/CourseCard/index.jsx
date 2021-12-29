@@ -1,5 +1,5 @@
 import { Card, Button, Spinner } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -26,9 +26,11 @@ const CourseCard = ({ id, title, syllabus, instructor }) => {
     (state) => state.courses.unenrollingCourse,
   );
 
+  const [searchParams] = useSearchParams();
+  const page = +searchParams.get('page') || 1;
   const dispatch = useDispatch();
   const deleteHandler = () => {
-    dispatch(deleteCourse(id));
+    dispatch(deleteCourse(id, page));
   };
 
   const enrollHandler = () => {

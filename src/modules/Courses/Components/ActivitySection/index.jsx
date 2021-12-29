@@ -73,6 +73,7 @@ const ActivitySection = ({ courseId, instructorId, activities }) => {
           courseId={courseId}
           ownsCourse={userOwnsCourse}
           activity={activity}
+          page={page}
         />
       ))}
 

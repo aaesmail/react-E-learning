@@ -21,3 +21,28 @@
   cursor: not-allowed;
   pointer-events: all;
 }
+
+.question {
+  display: flex;
+  margin-top: 10px;
+}
+
+.choices {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  width: 120px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.delIcon {
+  margin-right: 10px;
+  cursor: pointer;
+  color: red;
+}

@@ -2,7 +2,7 @@ import Video from './Video';
 import Pdf from './Pdf';
 import Quiz from './Quiz';
 
-const Activity = ({ courseId, ownsCourse, activity }) => {
+const Activity = ({ courseId, ownsCourse, activity, page }) => {
   const dateCreated = new Date(activity.createdAt);
   const formattedDate =
     ('00' + (dateCreated.getMonth() + 1)).slice(-2) +
@@ -26,6 +26,7 @@ const Activity = ({ courseId, ownsCourse, activity }) => {
       description={activity.description}
       createdAt={formattedDate}
       url={activity.url}
+      page={page}
     />
   ) : activity.type === 'PdfActivity' ? (
     <Pdf
@@ -36,6 +37,7 @@ const Activity = ({ courseId, ownsCourse, activity }) => {
       description={activity.description}
       createdAt={formattedDate}
       url={activity.url}
+      page={page}
     />
   ) : activity.type === 'QuizActivity' ? (
     <Quiz
@@ -47,6 +49,7 @@ const Activity = ({ courseId, ownsCourse, activity }) => {
       createdAt={formattedDate}
       grades={activity.grades}
       quiz={activity.quiz}
+      page={page}
     />
   ) : (
     <div>Unknown Activity</div>

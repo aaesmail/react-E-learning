@@ -29,7 +29,7 @@ export const getCourses = (page) => {
   };
 };
 
-export const deleteCourse = (id) => {
+export const deleteCourse = (id, page) => {
   return async (dispatch) => {
     dispatch({ type: actionTypes.DELETE_COURSE_START, payload: id });
 
@@ -37,6 +37,7 @@ export const deleteCourse = (id) => {
       await api.delete('/courses/' + id);
 
       dispatch({ type: REMOVE_OWNED_COURSE, payload: id });
+      dispatch(getCourses(page));
       toast.success('Course deleted!');
     } catch {
       toast.error("Couldn't delete course!");
@@ -101,6 +102,10 @@ export const fetchCurrentCourse = (id, page) => {
   };
 };
 
+export const loadActivities = () => {
+  return { type: actionTypes.LOAD_ACTIVITIES };
+};
+
 export const editCourse = (id, title, syllabus) => {
   return async (dispatch) => {
     dispatch({ type: actionTypes.UPDATE_COURSE_START });
@@ -147,7 +152,7 @@ export const createVideoActivity = (courseId, title, description, url) => {
   };
 };
 
-export const deleteVideoActivity = (courseId, activityId) => {
+export const deleteVideoActivity = (courseId, activityId, page) => {
   return async (dispatch) => {
     dispatch({ type: actionTypes.DELETE_ACTIVITY_START });
 
@@ -155,6 +160,9 @@ export const deleteVideoActivity = (courseId, activityId) => {
       await api.delete(`courses/${courseId}/activities/video/${activityId}`);
 
       dispatch({ type: actionTypes.REMOVE_ACTIVITY, payload: activityId });
+
+      dispatch(loadActivities());
+      dispatch(fetchCurrentCourse(courseId, page));
 
       toast.success('Video Activity deleted!');
     } catch {
@@ -194,7 +202,7 @@ export const createPdfActivity = (courseId, title, description, file) => {
   };
 };
 
-export const deletePdfActivity = (courseId, activityId) => {
+export const deletePdfActivity = (courseId, activityId, page) => {
   return async (dispatch) => {
     dispatch({ type: actionTypes.DELETE_ACTIVITY_START });
 
@@ -202,6 +210,9 @@ export const deletePdfActivity = (courseId, activityId) => {
       await api.delete(`courses/${courseId}/activities/pdf/${activityId}`);
 
       dispatch({ type: actionTypes.REMOVE_ACTIVITY, payload: activityId });
+
+      dispatch(loadActivities());
+      dispatch(fetchCurrentCourse(courseId, page));
 
       toast.success('Pdf Activity deleted!');
     } catch {
@@ -212,6 +223,98 @@ export const deletePdfActivity = (courseId, activityId) => {
   };
 };
 
-export const loadActivities = () => {
-  return { type: actionTypes.LOAD_ACTIVITIES };
+export const createQuizActivity = (
+  courseId,
+  title,
+  description,
+  quiz,
+  answers,
+) => {
+  return async (dispatch) => {
+    dispatch({ type: actionTypes.CREATE_ACTIVITY_START });
+
+    try {
+      const response = await api.post(`courses/${courseId}/activities/quiz`, {
+        title,
+        description,
+        answers,
+        quiz,
+      });
+
+      dispatch({
+        type: actionTypes.ADD_NEW_ACTIVITY,
+        payload: response.data,
+      });
+
+      toast.success('Quiz Activity created!');
+    } catch {
+      toast.error("Couldn't create Quiz Activity!");
+    } finally {
+      dispatch({ type: actionTypes.CREATE_ACTIVITY_DONE });
+    }
+  };
+};
+
+export const deleteQuizActivity = (courseId, activityId, page) => {
+  return async (dispatch) => {
+    dispatch({ type: actionTypes.DELETE_ACTIVITY_START });
+
+    try {
+      await api.delete(`courses/${courseId}/activities/quiz/${activityId}`);
+
+      dispatch({ type: actionTypes.REMOVE_ACTIVITY, payload: activityId });
+
+      dispatch(loadActivities());
+      dispatch(fetchCurrentCourse(courseId, page));
+
+      toast.success('Quiz Activity deleted!');
+    } catch {
+      toast.error("Couldn't delete Quiz Activity!");
+    } finally {
+      dispatch({ type: actionTypes.DELETE_ACTIVITY_DONE });
+    }
+  };
+};
+
+export const takeQuiz = (courseId, quizId, quiz, title, description) => {
+  return {
+    type: actionTypes.TAKE_QUIZ_START,
+    payload: { courseId, quizId, quiz, title, description },
+  };
+};
+
+export const endQuiz = () => {
+  return {
+    type: actionTypes.TAKE_QUIZ_DONE,
+  };
+};
+
+export const submitQuiz = (courseId, quizId, answers, navigate) => {
+  return async (dispatch) => {
+    dispatch({ type: actionTypes.SUBMIT_QUIZ_START });
+
+    try {
+      const response = await api.post(
+        `courses/${courseId}/activities/quiz/${quizId}`,
+        {
+          answers,
+        },
+      );
+
+      toast.success('Quiz submitted!');
+
+      dispatch(endQuiz());
+
+      dispatch({
+        type: actionTypes.ADD_GRADE,
+        payload: { quizId, grade: response.grade },
+      });
+
+      navigate(`/courses/${courseId}`);
+    } catch {
+      toast.error("Couldn't submit quiz!");
+    } finally {
+      dispatch({ type: actionTypes.SUBMIT_QUIZ_DONE });
+    }
+  };
 };
