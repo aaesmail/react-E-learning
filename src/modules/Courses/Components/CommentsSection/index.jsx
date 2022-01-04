@@ -14,7 +14,7 @@ const CommentsSection = ({ courseId, instructorId }) => {
   const [questionTitle, setQuestionTitle] = useState('');
   const [questionDesc, setQuestionDesc] = useState('');
 
-  const { creatingQuestion, questions, pages, loading } = useSelector(
+  const { creatingQuestion, questions, pages } = useSelector(
     (state) => state.comments,
   );
 
@@ -126,10 +126,6 @@ const CommentsSection = ({ courseId, instructorId }) => {
           </div>
         </div>
       ) : null}
-
-      {!loading && page > pages
-        ? setSearchParams({ comment_page: pages })
-        : null}
 
       {questions.map((question) => (
         <Question

@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useSearchParams, Navigate } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Pagination, Spinner } from 'react-bootstrap';
 
@@ -78,12 +78,6 @@ const ActivitySection = ({ courseId, instructorId, activities }) => {
           comment_page={comment_page}
         />
       ))}
-
-      {page > pages ? (
-        <Navigate
-          to={`/courses/${courseId}?page=${pages}&comment_page=${comment_page}`}
-        />
-      ) : null}
 
       {pages > 1 ? (
         <div className={Classes.pagination}>

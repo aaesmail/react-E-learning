@@ -77,8 +77,6 @@ const CoursesList = () => {
             ))}
           </div>
 
-          {page > pages ? setSearchParams({ page: pages }) : null}
-
           {pages > 1 ? (
             <div className={Classes.pagination}>
               <Pagination>{pagesArray}</Pagination>
