@@ -2,6 +2,21 @@
 
 This is a React SPA for a Learning Management System
 
+# Backend: https://github.com/SaadBadr/E-learning
+
+# Features:
+- React
+- React router v6
+- axios
+- Used axios request interceptors
+- redux
+- redux-thunk
+- css modules
+- React Bootstrap
+- Route guarding
+- Bundle splitting [Code only loaded when needed, made initial bundle really small]
+- Every action had normal state, loading state and error state
+
 ## Available Scripts
 
 In the project directory, you can run:
