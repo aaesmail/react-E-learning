@@ -6,11 +6,13 @@ This is a React SPA for a Learning Management System
 
 # Features:
 - React
+- React hooks
 - React router v6
 - axios
 - Used axios request interceptors
 - redux
 - redux-thunk
+- Used multiple redux state stores and reducers and used combine reducers
 - css modules
 - React Bootstrap
 - Route guarding
